@@ -1,5 +1,61 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 
+// Supabase configuration
+const SUPABASE_URL = 'https://qzwejufuwmdabddixgxp.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6d2VqdWZ1d21kYWJkZGl4Z3hwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0MTAzMDIsImV4cCI6MjA4MTk4NjMwMn0.tTCDnYHKwnNeUbEjWmgmogt3qgv6XL-wWJmUvuU9mxk';
+
+// Simple Supabase client
+const supabase = {
+  from: (table) => ({
+    select: async (columns = '*') => {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${columns}`, {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+      });
+      const data = await res.json();
+      return { data, error: res.ok ? null : data };
+    },
+    upsert: async (rows) => {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'resolution=merge-duplicates',
+        },
+        body: JSON.stringify(rows),
+      });
+      const data = await res.json();
+      return { data, error: res.ok ? null : data };
+    },
+    delete: async () => ({
+      eq: async (column, value) => {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${column}=eq.${value}`, {
+          method: 'DELETE',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+        });
+        return { error: res.ok ? null : await res.json() };
+      }
+    }),
+  }),
+};
+
+// Generate or retrieve visitor ID
+const getVisitorId = () => {
+  let visitorId = localStorage.getItem('snackranker-visitor-id');
+  if (!visitorId) {
+    visitorId = 'visitor_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+    localStorage.setItem('snackranker-visitor-id', visitorId);
+  }
+  return visitorId;
+};
+
 // Hook for responsive design
 const useWindowWidth = () => {
   const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 500);
@@ -595,8 +651,9 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, rese
 // Swipe Page
 const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLightbox }) => {
   const theme = useContext(ThemeContext);
+  const visitorId = getVisitorId();
   
-  // Get user votes from localStorage
+  // Get user votes from localStorage (for tracking what this user voted on)
   const [userVotes, setUserVotes] = useState(() => {
     const saved = localStorage.getItem('snackranker-votes');
     if (saved) {
@@ -637,21 +694,32 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
     localStorage.setItem('snackranker-votes', JSON.stringify(userVotes));
   }, [userVotes]);
   
-  const handleVote = (liked) => {
+  const handleVote = async (liked) => {
     if (!currentSnack || isAnimating) return;
     
     setSwipeDirection(liked ? 'right' : 'left');
     setIsAnimating(true);
     
+    // Save to Supabase
+    try {
+      await supabase.from('votes').upsert([{
+        visitor_id: visitorId,
+        bar_id: currentSnack.id,
+        liked: liked,
+        updated_at: new Date().toISOString(),
+      }]);
+    } catch (err) {
+      console.error('Error saving vote:', err);
+    }
+    
     setTimeout(() => {
-      // Update user's vote
+      // Update user's local vote tracking
       const newVotes = { ...userVotes, [currentSnack.id]: liked };
       setUserVotes(newVotes);
       
-      // Update bar's vote count
+      // Update bar's vote count locally
       setSnacks(prev => prev.map(s => {
         if (s.id === currentSnack.id) {
-          // Remove old vote if exists, add new vote
           const hadPreviousVote = s.id in userVotes;
           const previousVote = userVotes[s.id];
           
@@ -659,12 +727,10 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
           let newTotalVotes = s.totalVotes || 0;
           
           if (hadPreviousVote) {
-            // Remove previous vote
             if (previousVote) newYesVotes--;
             newTotalVotes--;
           }
           
-          // Add new vote
           if (liked) newYesVotes++;
           newTotalVotes++;
           
@@ -741,17 +807,45 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
     }
   };
   
-  const resetVotes = () => {
+  const resetVotes = async () => {
     if (window.confirm('Clear all your votes and start over?')) {
+      // Delete this user's votes from Supabase
+      try {
+        const deleteResult = await supabase.from('votes').delete();
+        await deleteResult.eq('visitor_id', visitorId);
+      } catch (err) {
+        console.error('Error deleting votes:', err);
+      }
+      
       setUserVotes({});
       setCurrentIndex(0);
-      // Reset all bars to initial state
-      setSnacks(prev => prev.map(s => ({
-        ...s,
-        yesVotes: 0,
-        totalVotes: 0,
-        rating: 0
-      })));
+      
+      // Refetch all votes to get accurate counts
+      try {
+        const { data: votes } = await supabase.from('votes').select('*');
+        const voteCounts = {};
+        (votes || []).forEach(vote => {
+          if (!voteCounts[vote.bar_id]) {
+            voteCounts[vote.bar_id] = { yesVotes: 0, totalVotes: 0 };
+          }
+          voteCounts[vote.bar_id].totalVotes++;
+          if (vote.liked) {
+            voteCounts[vote.bar_id].yesVotes++;
+          }
+        });
+        
+        setSnacks(prev => prev.map(s => {
+          const counts = voteCounts[s.id] || { yesVotes: 0, totalVotes: 0 };
+          return {
+            ...s,
+            yesVotes: counts.yesVotes,
+            totalVotes: counts.totalVotes,
+            rating: counts.totalVotes > 0 ? Math.round((counts.yesVotes / counts.totalVotes) * 100) : 0
+          };
+        }));
+      } catch (err) {
+        console.error('Error refetching votes:', err);
+      }
     }
   };
 
@@ -1336,29 +1430,60 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
 // Main App
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [snacks, setSnacks] = useState(() => {
-    const saved = localStorage.getItem('snackranker-data');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch {
-        return initialSnacks;
-      }
-    }
-    return initialSnacks;
-  });
+  const [snacks, setSnacks] = useState(initialSnacks);
   const [selectedSnack, setSelectedSnack] = useState(null);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('snackranker-theme');
     return saved === 'dark';
   });
   const [lightbox, setLightbox] = useState({ open: false, imageUrl: null, alt: '' });
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Save snacks to localStorage whenever they change
+  const visitorId = getVisitorId();
+
+  // Fetch all votes from Supabase on load
   useEffect(() => {
-    localStorage.setItem('snackranker-data', JSON.stringify(snacks));
-  }, [snacks]);
-  
+    const fetchVotes = async () => {
+      try {
+        const { data: votes, error } = await supabase.from('votes').select('*');
+        
+        if (error) {
+          console.error('Error fetching votes:', error);
+          setIsLoading(false);
+          return;
+        }
+
+        // Aggregate votes by bar
+        const voteCounts = {};
+        votes.forEach(vote => {
+          if (!voteCounts[vote.bar_id]) {
+            voteCounts[vote.bar_id] = { yesVotes: 0, totalVotes: 0 };
+          }
+          voteCounts[vote.bar_id].totalVotes++;
+          if (vote.liked) {
+            voteCounts[vote.bar_id].yesVotes++;
+          }
+        });
+
+        // Update snacks with vote data
+        setSnacks(prev => prev.map(s => {
+          const counts = voteCounts[s.id] || { yesVotes: 0, totalVotes: 0 };
+          return {
+            ...s,
+            yesVotes: counts.yesVotes,
+            totalVotes: counts.totalVotes,
+            rating: counts.totalVotes > 0 ? Math.round((counts.yesVotes / counts.totalVotes) * 100) : 0
+          };
+        }));
+      } catch (err) {
+        console.error('Error:', err);
+      }
+      setIsLoading(false);
+    };
+
+    fetchVotes();
+  }, []);
+
   // Save theme preference
   useEffect(() => {
     localStorage.setItem('snackranker-theme', isDark ? 'dark' : 'light');
@@ -1374,8 +1499,9 @@ export default function App() {
     setLightbox({ open: false, imageUrl: null, alt: '' });
   };
   
-  const resetRankings = () => {
+  const resetRankings = async () => {
     if (window.confirm('Reset all rankings to default? This cannot be undone.')) {
+      // Note: This only resets local view, not the database
       setSnacks(initialSnacks);
     }
   };
