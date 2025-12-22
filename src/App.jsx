@@ -1331,79 +1331,43 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
   
   return (
     <div style={{
-      minHeight: '100vh',
+      flex: 1,
       background: theme.bg,
-      paddingBottom: '100px',
+      overflow: 'auto',
     }}>
-      {/* Back Button */}
-      <button
-        onClick={() => setCurrentPage('home')}
-        style={{
-          position: 'absolute',
-          top: 'var(--spacing-md)',
-          left: 'var(--spacing-md)',
-          background: theme.bgSecondary,
-          border: `1px solid ${theme.border}`,
-          borderRadius: 'var(--radius-sm)',
-          padding: 'var(--spacing-xs) var(--spacing-sm)',
-          cursor: 'pointer',
-          zIndex: 100,
-          fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-sm)',
-          color: theme.textSecondary,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-        }}
-      >
-        ← Back
-      </button>
-
-      {/* Hero */}
+      {/* Header with back button and title */}
       <div style={{
-        padding: 'var(--spacing-xl) var(--spacing-sm) var(--spacing-lg)',
-        textAlign: 'center',
+        padding: 'var(--spacing-sm) var(--spacing-sm)',
+        borderBottom: `1px solid ${theme.border}`,
       }}>
-        <div style={{
-          marginBottom: 'var(--spacing-md)',
-        }}>
-          <FlavourCircle flavour={snack.flavour} brand={snack.brand} fullWidth onImageClick={openLightbox} />
-        </div>
-
-        <div style={{
-          display: 'inline-block',
-          background: rank <= 3 ? theme.accent : theme.bgTertiary,
-          borderRadius: 'var(--radius-sm)',
-          padding: 'var(--spacing-xs) var(--spacing-sm)',
-          marginBottom: 'var(--spacing-sm)',
-        }}>
-          <span style={{
-            fontFamily: '"Tanker", sans-serif',
-            fontSize: 'var(--font-md)',
-            color: rank <= 3 ? '#FFFFFF' : theme.textSecondary,
-          }}>
-            #{rank} of {snacks.length}
-          </span>
-        </div>
-
+        <button
+          onClick={() => setCurrentPage('home')}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-sm)',
+            color: theme.accent,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            marginBottom: 'var(--spacing-xs)',
+          }}
+        >
+          ← Back to Rankings
+        </button>
+        
+        {/* Name and Brand */}
         <h1 style={{
           fontFamily: '"Tanker", sans-serif',
-          fontSize: 'var(--font-xxl)',
+          fontSize: 'var(--font-xl)',
           color: theme.text,
-          margin: '0 0 4px',
+          margin: '0 0 2px',
         }}>
           {snack.flavour}
         </h1>
-        
-        <p style={{
-          fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-md)',
-          color: theme.accent,
-          margin: '0 0 4px',
-          fontWeight: 600,
-        }}>
-          {snack.name}
-        </p>
         
         <p style={{
           fontFamily: '"Manrope", sans-serif',
@@ -1411,165 +1375,168 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
           color: theme.textMuted,
           margin: 0,
         }}>
-          {snack.brand}
+          {snack.name} · {snack.brand}
         </p>
       </div>
 
-      {/* Content */}
-      <div style={{
-        padding: '0 var(--spacing-sm)',
-      }}>
-        {/* Rating Card */}
+      {/* Image */}
+      <div style={{ padding: 'var(--spacing-sm)' }}>
         <div style={{
-          background: theme.cardBg,
           borderRadius: 'var(--radius-md)',
-          padding: 'var(--spacing-md)',
-          marginBottom: 'var(--spacing-sm)',
+          overflow: 'hidden',
           border: `1px solid ${theme.border}`,
-          display: 'flex',
-          justifyContent: 'space-around',
+        }}>
+          <FlavourCircle flavour={snack.flavour} brand={snack.brand} fullWidth onImageClick={openLightbox} />
+        </div>
+      </div>
+
+      {/* Rank + Rating Row - Compact */}
+      <div style={{
+        padding: '0 var(--spacing-sm) var(--spacing-sm)',
+        display: 'flex',
+        gap: 'var(--spacing-xs)',
+      }}>
+        <div style={{
+          flex: 1,
+          background: rank <= 3 ? theme.accent : theme.cardBg,
+          borderRadius: 'var(--radius-sm)',
+          padding: 'var(--spacing-sm)',
+          border: rank <= 3 ? 'none' : `1px solid ${theme.border}`,
           textAlign: 'center',
         }}>
-          <div>
-            <div style={{
-              fontFamily: '"Tanker", sans-serif',
-              fontSize: 'var(--font-xxl)',
-              color: snack.totalVotes > 0 ? theme.accent : theme.textMuted,
-            }}>
-              {snack.totalVotes > 0 ? `${snack.rating}%` : '—'}
-            </div>
-            <div style={{
-              fontFamily: '"Manrope", sans-serif',
-              fontSize: 'var(--font-xs)',
-              color: theme.textMuted,
-              textTransform: 'uppercase',
-            }}>
-              Approval
-            </div>
-          </div>
-          <div style={{ width: '1px', background: theme.border }} />
-          <div>
-            <div style={{
-              fontFamily: '"Tanker", sans-serif',
-              fontSize: 'var(--font-xxl)',
-              color: theme.text,
-            }}>
-              {snack.totalVotes || 0}
-            </div>
-            <div style={{
-              fontFamily: '"Manrope", sans-serif',
-              fontSize: 'var(--font-xs)',
-              color: theme.textMuted,
-              textTransform: 'uppercase',
-            }}>
-              Votes
-            </div>
-          </div>
-        </div>
-
-        {/* Price */}
-        <div style={{
-          background: theme.cardBg,
-          borderRadius: 'var(--radius-md)',
-          padding: 'var(--spacing-sm) var(--spacing-md)',
-          marginBottom: 'var(--spacing-sm)',
-          border: `1px solid ${theme.border}`,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-          <span style={{
-            fontFamily: '"Manrope", sans-serif',
-            fontSize: 'var(--font-sm)',
-            color: theme.textMuted,
-          }}>
-            Price
-          </span>
-          <span style={{
+          <div style={{
             fontFamily: '"Tanker", sans-serif',
-            fontSize: 'var(--font-xl)',
-            color: theme.accent,
+            fontSize: 'var(--font-lg)',
+            color: rank <= 3 ? '#FFFFFF' : theme.text,
           }}>
-            ${snack.price.toFixed(2)}
-          </span>
+            #{rank}
+          </div>
+          <div style={{
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: '10px',
+            color: rank <= 3 ? 'rgba(255,255,255,0.8)' : theme.textMuted,
+            textTransform: 'uppercase',
+          }}>
+            Rank
+          </div>
         </div>
-
-        {/* Nutrition */}
+        
         <div style={{
+          flex: 1,
           background: theme.cardBg,
-          borderRadius: 'var(--radius-md)',
-          padding: 'var(--spacing-md)',
-          marginBottom: 'var(--spacing-sm)',
+          borderRadius: 'var(--radius-sm)',
+          padding: 'var(--spacing-sm)',
           border: `1px solid ${theme.border}`,
+          textAlign: 'center',
         }}>
-          <h3 style={{
+          <div style={{
+            fontFamily: '"Tanker", sans-serif',
+            fontSize: 'var(--font-lg)',
+            color: snack.totalVotes > 0 ? theme.accent : theme.textMuted,
+          }}>
+            {snack.totalVotes > 0 ? `${snack.rating}%` : '—'}
+          </div>
+          <div style={{
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: '10px',
+            color: theme.textMuted,
+            textTransform: 'uppercase',
+          }}>
+            Approval
+          </div>
+        </div>
+        
+        <div style={{
+          flex: 1,
+          background: theme.cardBg,
+          borderRadius: 'var(--radius-sm)',
+          padding: 'var(--spacing-sm)',
+          border: `1px solid ${theme.border}`,
+          textAlign: 'center',
+        }}>
+          <div style={{
             fontFamily: '"Tanker", sans-serif',
             fontSize: 'var(--font-lg)',
             color: theme.text,
-            margin: '0 0 var(--spacing-sm)',
           }}>
-            Nutrition
-          </h3>
-          
+            {snack.totalVotes || 0}
+          </div>
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: 'var(--spacing-xs)',
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: '10px',
+            color: theme.textMuted,
+            textTransform: 'uppercase',
           }}>
-            {[
-              { label: 'Calories', value: snack.calories, unit: '' },
-              { label: 'Protein', value: snack.protein, unit: 'g', highlight: true },
-              { label: 'Sugar', value: snack.sugar, unit: 'g' },
-              { label: 'Fibre', value: snack.fiber, unit: 'g' },
-            ].map(item => (
-              <div key={item.label} style={{
-                background: item.highlight ? `${theme.accent}15` : theme.bgTertiary,
-                borderRadius: 'var(--radius-sm)',
-                padding: 'var(--spacing-sm)',
-                textAlign: 'center',
-              }}>
-                <div style={{
-                  fontFamily: '"Tanker", sans-serif',
-                  fontSize: 'var(--font-xl)',
-                  color: item.highlight ? theme.accent : theme.text,
-                }}>
-                  {item.value}{item.unit}
-                </div>
-                <div style={{
-                  fontFamily: '"Manrope", sans-serif',
-                  fontSize: 'var(--font-xs)',
-                  color: theme.textMuted,
-                  textTransform: 'uppercase',
-                }}>
-                  {item.label}
-                </div>
-              </div>
-            ))}
+            Votes
           </div>
         </div>
+      </div>
 
-        {/* Description */}
+      {/* Quick Stats Row */}
+      <div style={{
+        padding: '0 var(--spacing-sm) var(--spacing-sm)',
+        display: 'flex',
+        gap: 'var(--spacing-xs)',
+      }}>
+        {[
+          { label: 'Protein', value: `${snack.protein}g`, highlight: true },
+          { label: 'Calories', value: snack.calories },
+          { label: 'Sugar', value: `${snack.sugar}g` },
+          { label: 'Price', value: `$${snack.price.toFixed(2)}` },
+        ].map(item => (
+          <div key={item.label} style={{
+            flex: 1,
+            background: item.highlight ? `${theme.accent}15` : theme.cardBg,
+            borderRadius: 'var(--radius-sm)',
+            padding: 'var(--spacing-sm)',
+            border: `1px solid ${item.highlight ? theme.accent + '30' : theme.border}`,
+            textAlign: 'center',
+          }}>
+            <div style={{
+              fontFamily: '"Manrope", sans-serif',
+              fontSize: 'var(--font-sm)',
+              fontWeight: 600,
+              color: item.highlight ? theme.accent : theme.text,
+            }}>
+              {item.value}
+            </div>
+            <div style={{
+              fontFamily: '"Manrope", sans-serif',
+              fontSize: '9px',
+              color: theme.textMuted,
+              textTransform: 'uppercase',
+            }}>
+              {item.label}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* About */}
+      <div style={{
+        padding: '0 var(--spacing-sm) var(--spacing-lg)',
+      }}>
         <div style={{
           background: theme.cardBg,
           borderRadius: 'var(--radius-md)',
-          padding: 'var(--spacing-md)',
+          padding: 'var(--spacing-sm)',
           border: `1px solid ${theme.border}`,
         }}>
           <h3 style={{
-            fontFamily: '"Tanker", sans-serif',
-            fontSize: 'var(--font-lg)',
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-sm)',
+            fontWeight: 600,
             color: theme.text,
             margin: '0 0 var(--spacing-xs)',
           }}>
             About
           </h3>
-          
           <p style={{
             fontFamily: '"Manrope", sans-serif',
-            fontSize: 'var(--font-sm)',
+            fontSize: 'var(--font-xs)',
             color: theme.textSecondary,
             margin: 0,
-            lineHeight: 1.6,
+            lineHeight: 1.5,
           }}>
             {snack.description}
           </p>
