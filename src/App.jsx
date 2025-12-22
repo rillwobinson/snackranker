@@ -338,55 +338,47 @@ const FlavourCircle = ({ flavour, brand, size = 48, fullWidth = false, onImageCl
   );
 };
 
-// Theme Toggle Component
-const ThemeToggle = ({ isDark, setIsDark }) => {
-  const theme = useContext(ThemeContext);
-  
-  return (
-    <button
-      onClick={() => setIsDark(!isDark)}
-      style={{
-        position: 'absolute',
-        top: '16px',
-        right: '16px',
-        width: '40px',
-        height: '40px',
-        borderRadius: '10px',
-        background: theme.bgSecondary,
-        border: `1px solid ${theme.border}`,
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '18px',
-        zIndex: 1000,
-        transition: 'all 0.2s ease',
-      }}
-    >
-      {isDark ? '☀️' : '🌙'}
-    </button>
-  );
-};
 
-// Navigation Component
-const Nav = ({ currentPage, setCurrentPage }) => {
+// Header Navigation Component
+const Header = ({ currentPage, setCurrentPage, isDark, setIsDark }) => {
   const theme = useContext(ThemeContext);
   
   return (
-    <nav style={{
+    <header style={{
       position: 'sticky',
-      bottom: 0,
+      top: 0,
       left: 0,
       right: 0,
-      background: theme.bgSecondary,
-      borderTop: `1px solid ${theme.border}`,
-      padding: '12px 16px max(12px, env(safe-area-inset-bottom))',
+      background: theme.bg,
+      borderBottom: `1px solid ${theme.border}`,
+      padding: 'var(--spacing-sm) var(--spacing-sm)',
       zIndex: 1000,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 'var(--spacing-sm)',
     }}>
+      {/* Logo */}
+      <div 
+        onClick={() => setCurrentPage('home')}
+        style={{
+          fontFamily: '"Tanker", sans-serif',
+          fontSize: 'var(--font-lg)',
+          color: theme.text,
+          cursor: 'pointer',
+          flexShrink: 0,
+        }}
+      >
+        SnackRanker
+      </div>
+      
+      {/* Nav Tabs */}
       <div style={{
         display: 'flex',
-        justifyContent: 'center',
-        gap: '8px',
+        gap: '4px',
+        background: theme.bgTertiary,
+        borderRadius: 'var(--radius-sm)',
+        padding: '4px',
       }}>
         {[
           { id: 'home', label: 'Rankings' },
@@ -396,30 +388,187 @@ const Nav = ({ currentPage, setCurrentPage }) => {
             key={item.id}
             onClick={() => setCurrentPage(item.id)}
             style={{
-              flex: 1,
-              maxWidth: '160px',
-              background: currentPage === item.id ? theme.accent : 'transparent',
-              border: currentPage === item.id ? 'none' : `1px solid ${theme.border}`,
-              borderRadius: '8px',
-              padding: '12px 24px',
+              background: currentPage === item.id ? theme.cardBg : 'transparent',
+              border: 'none',
+              borderRadius: 'var(--radius-sm)',
+              padding: 'var(--spacing-xs) var(--spacing-sm)',
               cursor: 'pointer',
               fontFamily: '"Manrope", sans-serif',
-              fontSize: '14px',
+              fontSize: 'var(--font-xs)',
               fontWeight: 600,
-              color: currentPage === item.id ? '#FFFFFF' : theme.textSecondary,
-              transition: 'all 0.2s ease',
+              color: currentPage === item.id ? theme.text : theme.textMuted,
+              transition: 'all 0.15s ease',
+              boxShadow: currentPage === item.id ? `0 1px 3px ${theme.shadow}` : 'none',
             }}
           >
             {item.label}
           </button>
         ))}
       </div>
-    </nav>
+      
+      {/* Theme Toggle */}
+      <button
+        onClick={() => setIsDark(!isDark)}
+        style={{
+          background: theme.bgTertiary,
+          border: 'none',
+          borderRadius: 'var(--radius-sm)',
+          padding: 'var(--spacing-xs)',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '16px',
+          flexShrink: 0,
+          width: '32px',
+          height: '32px',
+        }}
+      >
+        {isDark ? '☀️' : '🌙'}
+      </button>
+    </header>
+  );
+};
+
+// Footer Component
+const Footer = ({ resetRankings, setCurrentPage, totalVotes }) => {
+  const theme = useContext(ThemeContext);
+  
+  return (
+    <footer style={{
+      borderTop: `1px solid ${theme.border}`,
+      padding: 'var(--spacing-sm) var(--spacing-md)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      background: theme.bg,
+    }}>
+      <button
+        onClick={() => setCurrentPage('about')}
+        style={{
+          background: 'transparent',
+          border: 'none',
+          padding: 0,
+          cursor: 'pointer',
+          fontFamily: '"Manrope", sans-serif',
+          fontSize: 'var(--font-xs)',
+          color: theme.textMuted,
+        }}
+      >
+        About SnackRanker
+      </button>
+      
+      {totalVotes > 0 && (
+        <button
+          onClick={resetRankings}
+          style={{
+            background: 'transparent',
+            border: `1px solid ${theme.border}`,
+            borderRadius: 'var(--radius-sm)',
+            padding: 'var(--spacing-xs) var(--spacing-sm)',
+            cursor: 'pointer',
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-xs)',
+            color: theme.textMuted,
+          }}
+        >
+          Reset My Votes
+        </button>
+      )}
+    </footer>
+  );
+};
+
+// About Page
+const AboutPage = ({ setCurrentPage }) => {
+  const theme = useContext(ThemeContext);
+  
+  return (
+    <div style={{
+      flex: 1,
+      padding: 'var(--spacing-lg) var(--spacing-md)',
+      background: theme.bg,
+    }}>
+      <h1 style={{
+        fontFamily: '"Tanker", sans-serif',
+        fontSize: 'var(--font-xl)',
+        color: theme.text,
+        margin: '0 0 var(--spacing-md)',
+      }}>
+        About SnackRanker
+      </h1>
+      
+      <div style={{
+        fontFamily: '"Manrope", sans-serif',
+        fontSize: 'var(--font-sm)',
+        color: theme.textSecondary,
+        lineHeight: 1.7,
+      }}>
+        <p style={{ margin: '0 0 var(--spacing-md)' }}>
+          <strong style={{ color: theme.text }}>Tired of wasting money on protein bars that taste like cardboard?</strong>
+        </p>
+        
+        <p style={{ margin: '0 0 var(--spacing-md)' }}>
+          SnackRanker helps you find the best protein bars based on real community votes. No sponsored reviews, no influencer deals — just honest opinions from people like you.
+        </p>
+        
+        <h2 style={{
+          fontFamily: '"Tanker", sans-serif',
+          fontSize: 'var(--font-lg)',
+          color: theme.text,
+          margin: '0 0 var(--spacing-sm)',
+        }}>
+          How it works
+        </h2>
+        
+        <p style={{ margin: '0 0 var(--spacing-sm)' }}>
+          <strong style={{ color: theme.accent }}>1. Rate</strong> — Swipe through protein bars. Right for yes, left for no. Simple.
+        </p>
+        
+        <p style={{ margin: '0 0 var(--spacing-sm)' }}>
+          <strong style={{ color: theme.accent }}>2. Rankings</strong> — See which bars the community loves most, sorted by approval rating.
+        </p>
+        
+        <p style={{ margin: '0 0 var(--spacing-md)' }}>
+          <strong style={{ color: theme.accent }}>3. Decide</strong> — Use the rankings to find bars worth your money before you buy.
+        </p>
+        
+        <h2 style={{
+          fontFamily: '"Tanker", sans-serif',
+          fontSize: 'var(--font-lg)',
+          color: theme.text,
+          margin: '0 0 var(--spacing-sm)',
+        }}>
+          Your vote matters
+        </h2>
+        
+        <p style={{ margin: '0 0 var(--spacing-lg)' }}>
+          Every vote shapes the rankings. You get one vote per bar, and you can change it anytime. The more people vote, the more accurate the rankings become.
+        </p>
+        
+        <button
+          onClick={() => setCurrentPage('swipe')}
+          style={{
+            background: theme.accent,
+            border: 'none',
+            borderRadius: 'var(--radius-md)',
+            padding: 'var(--spacing-sm) var(--spacing-lg)',
+            cursor: 'pointer',
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-sm)',
+            fontWeight: 600,
+            color: '#FFFFFF',
+          }}
+        >
+          Start Rating →
+        </button>
+      </div>
+    </div>
   );
 };
 
 // Home Page
-const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, resetRankings }) => {
+const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox }) => {
   const theme = useContext(ThemeContext);
   const [displayStat, setDisplayStat] = useState(() => {
     const saved = localStorage.getItem('snackranker-display-stat');
@@ -450,87 +599,60 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, rese
   
   return (
     <div style={{
-      minHeight: '100vh',
+      flex: 1,
       background: theme.bg,
-      paddingBottom: '80px',
+      display: 'flex',
+      flexDirection: 'column',
     }}>
-      {/* Header */}
+      {/* Subheader with stats */}
       <div style={{
-        padding: 'var(--spacing-xl) var(--spacing-md) var(--spacing-sm)',
+        padding: 'var(--spacing-sm) var(--spacing-sm)',
+        borderBottom: `1px solid ${theme.border}`,
       }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'flex-start',
+          alignItems: 'center',
+          marginBottom: 'var(--spacing-xs)',
         }}>
-          <div>
-            <h1 style={{
-              fontFamily: '"Tanker", sans-serif',
-              fontSize: 'var(--font-xxl)',
-              fontWeight: 400,
-              color: theme.text,
-              margin: '0 0 4px',
-            }}>
-              SnackRanker
-            </h1>
-            <p style={{
-              fontFamily: '"Manrope", sans-serif',
-              fontSize: 'var(--font-sm)',
-              color: theme.textMuted,
-              margin: 0,
-            }}>
-              {snacks.length} bars · {totalVotes} votes
-            </p>
-          </div>
-          {totalVotes > 0 && (
+          <span style={{
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-xs)',
+            color: theme.textMuted,
+          }}>
+            {snacks.length} bars · {totalVotes} votes
+          </span>
+        </div>
+        
+        {/* Stat Selector */}
+        <div style={{
+          display: 'flex',
+          gap: '6px',
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+        }}>
+          {statOptions.map(stat => (
             <button
-              onClick={resetRankings}
+              key={stat.id}
+              onClick={() => setDisplayStat(stat.id)}
               style={{
-                background: 'transparent',
-                border: `1px solid ${theme.border}`,
+                background: displayStat === stat.id ? theme.accent : theme.bgTertiary,
+                border: 'none',
                 borderRadius: 'var(--radius-sm)',
                 padding: 'var(--spacing-xs) var(--spacing-sm)',
                 cursor: 'pointer',
                 fontFamily: '"Manrope", sans-serif',
                 fontSize: 'var(--font-xs)',
-                color: theme.textMuted,
+                fontWeight: 600,
+                color: displayStat === stat.id ? '#FFFFFF' : theme.textMuted,
+                whiteSpace: 'nowrap',
+                transition: 'all 0.15s ease',
               }}
             >
-              Reset
+              {stat.label}
             </button>
-          )}
+          ))}
         </div>
-      </div>
-      
-      {/* Stat Selector */}
-      <div style={{
-        padding: '0 var(--spacing-sm) var(--spacing-sm)',
-        display: 'flex',
-        gap: '6px',
-        overflowX: 'auto',
-        WebkitOverflowScrolling: 'touch',
-      }}>
-        {statOptions.map(stat => (
-          <button
-            key={stat.id}
-            onClick={() => setDisplayStat(stat.id)}
-            style={{
-              background: displayStat === stat.id ? theme.accent : theme.bgTertiary,
-              border: 'none',
-              borderRadius: 'var(--radius-sm)',
-              padding: 'var(--spacing-xs) var(--spacing-sm)',
-              cursor: 'pointer',
-              fontFamily: '"Manrope", sans-serif',
-              fontSize: 'var(--font-xs)',
-              fontWeight: 600,
-              color: displayStat === stat.id ? '#FFFFFF' : theme.textMuted,
-              whiteSpace: 'nowrap',
-              transition: 'all 0.15s ease',
-            }}
-          >
-            {stat.label}
-          </button>
-        ))}
       </div>
 
       {/* Rankings List */}
@@ -853,9 +975,9 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
   if (!currentSnack) {
     return (
       <div style={{
-        minHeight: '100vh',
+        flex: 1,
         background: theme.bg,
-        padding: 'var(--spacing-xl) var(--spacing-md)',
+        padding: 'var(--spacing-lg)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -863,7 +985,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         textAlign: 'center',
       }}>
         <div style={{
-          fontSize: '64px',
+          fontSize: '48px',
           marginBottom: 'var(--spacing-md)',
         }}>
           🎉
@@ -891,7 +1013,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
               background: theme.accent,
               border: 'none',
               borderRadius: 'var(--radius-sm)',
-              padding: 'var(--spacing-sm) var(--spacing-lg)',
+              padding: 'var(--spacing-sm) var(--spacing-md)',
               cursor: 'pointer',
               fontFamily: '"Manrope", sans-serif',
               fontSize: 'var(--font-sm)',
@@ -907,7 +1029,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
               background: 'transparent',
               border: `1px solid ${theme.border}`,
               borderRadius: 'var(--radius-sm)',
-              padding: 'var(--spacing-sm) var(--spacing-lg)',
+              padding: 'var(--spacing-sm) var(--spacing-md)',
               cursor: 'pointer',
               fontFamily: '"Manrope", sans-serif',
               fontSize: 'var(--font-sm)',
@@ -938,33 +1060,28 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
   return (
     <div 
       style={{
-        minHeight: '100vh',
+        flex: 1,
         background: theme.bg,
-        padding: 'var(--spacing-xl) var(--spacing-sm) 100px',
+        padding: 'var(--spacing-sm)',
         display: 'flex',
         flexDirection: 'column',
         userSelect: 'none',
+        overflow: 'hidden',
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Header */}
-      <div style={{ marginBottom: 'var(--spacing-md)' }}>
+      {/* Progress bar */}
+      <div style={{
+        marginBottom: 'var(--spacing-xs)',
+      }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 'var(--spacing-xs)',
+          marginBottom: '4px',
         }}>
-          <h2 style={{
-            fontFamily: '"Tanker", sans-serif',
-            fontSize: 'var(--font-xl)',
-            color: theme.text,
-            margin: 0,
-          }}>
-            Rate this bar
-          </h2>
           <span style={{
             fontFamily: '"Manrope", sans-serif',
             fontSize: 'var(--font-xs)',
@@ -972,11 +1089,17 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
           }}>
             {votedCount + 1} of {totalBars}
           </span>
+          <span style={{
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-xs)',
+            color: theme.accent,
+            fontWeight: 600,
+          }}>
+            {Math.round(progress)}%
+          </span>
         </div>
-        
-        {/* Progress bar */}
         <div style={{
-          height: '4px',
+          height: '3px',
           background: theme.bgTertiary,
           borderRadius: '2px',
           overflow: 'hidden',
@@ -994,14 +1117,14 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
-        padding: '0 var(--spacing-sm)',
         marginBottom: 'var(--spacing-xs)',
+        minHeight: '20px',
         opacity: isDragging ? 1 : 0,
         transition: 'opacity 0.2s ease',
       }}>
         <div style={{
           fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-sm)',
+          fontSize: 'var(--font-xs)',
           fontWeight: 600,
           color: dragOffset < -30 ? '#e74c3c' : theme.textMuted,
           transition: 'color 0.2s ease',
@@ -1010,7 +1133,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         </div>
         <div style={{
           fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-sm)',
+          fontSize: 'var(--font-xs)',
           fontWeight: 600,
           color: dragOffset > 30 ? theme.success : theme.textMuted,
           transition: 'color 0.2s ease',
@@ -1024,6 +1147,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
+        minHeight: 0,
       }}>
         <div
           onTouchStart={handleTouchStart}
@@ -1032,7 +1156,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
           onMouseDown={handleMouseDown}
           style={{
             background: theme.cardBg,
-            borderRadius: 'var(--radius-lg)',
+            borderRadius: 'var(--radius-md)',
             border: `1px solid ${theme.border}`,
             overflow: 'hidden',
             transform: getCardTransform(),
@@ -1040,9 +1164,13 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
             transition: isDragging ? 'none' : 'all 0.3s ease',
             cursor: isDragging ? 'grabbing' : 'grab',
             touchAction: 'pan-y',
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            minHeight: 0,
           }}
         >
-          {/* Image */}
+          {/* Image - takes available space */}
           <div 
             onClick={() => {
               if (!isDragging || Math.abs(dragOffset) < 10) {
@@ -1050,54 +1178,77 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
                 setCurrentPage('profile');
               }
             }}
-            style={{ cursor: 'pointer' }}
+            style={{ 
+              cursor: 'pointer',
+              flex: 1,
+              minHeight: 0,
+              overflow: 'hidden',
+            }}
           >
-            <FlavourCircle 
-              flavour={currentSnack.flavour} 
-              brand={currentSnack.brand} 
-              fullWidth 
-              onImageClick={openLightbox} 
+            <img
+              src={`/bars/${getImageFilename(currentSnack.brand, currentSnack.flavour)}`}
+              alt={`${currentSnack.brand} ${currentSnack.flavour}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                openLightbox(`/bars/${getImageFilename(currentSnack.brand, currentSnack.flavour)}`, `${currentSnack.brand} ${currentSnack.flavour}`);
+              }}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                cursor: 'zoom-in',
+              }}
             />
           </div>
           
-          {/* Info */}
-          <div style={{ padding: 'var(--spacing-md)' }}>
-            <h3 style={{
-              fontFamily: '"Manrope", sans-serif',
-              fontSize: 'var(--font-lg)',
-              fontWeight: 700,
-              color: theme.text,
-              margin: '0 0 2px',
-            }}>
-              {currentSnack.flavour}
-            </h3>
-            
-            <p style={{
-              fontFamily: '"Manrope", sans-serif',
-              fontSize: 'var(--font-sm)',
-              color: theme.textMuted,
-              margin: '0 0 var(--spacing-md)',
-            }}>
-              {currentSnack.name} · {currentSnack.brand}
-            </p>
-
-            {/* Macros row */}
+          {/* Info - compact */}
+          <div style={{ padding: 'var(--spacing-sm)' }}>
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
-              padding: 'var(--spacing-sm) 0',
-              borderTop: `1px solid ${theme.border}`,
+              alignItems: 'flex-start',
+              marginBottom: 'var(--spacing-xs)',
+            }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <h3 style={{
+                  fontFamily: '"Manrope", sans-serif',
+                  fontSize: 'var(--font-md)',
+                  fontWeight: 700,
+                  color: theme.text,
+                  margin: 0,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}>
+                  {currentSnack.flavour}
+                </h3>
+                <p style={{
+                  fontFamily: '"Manrope", sans-serif',
+                  fontSize: 'var(--font-xs)',
+                  color: theme.textMuted,
+                  margin: 0,
+                }}>
+                  {currentSnack.name} · {currentSnack.brand}
+                </p>
+              </div>
+            </div>
+
+            {/* Macros row - inline */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              gap: 'var(--spacing-xs)',
             }}>
               {[
                 { label: 'Protein', value: `${currentSnack.protein}g`, highlight: true },
-                { label: 'Calories', value: currentSnack.calories },
+                { label: 'Cal', value: currentSnack.calories },
                 { label: 'Sugar', value: `${currentSnack.sugar}g` },
                 { label: 'Price', value: `$${currentSnack.price.toFixed(2)}` },
               ].map(macro => (
-                <div key={macro.label} style={{ textAlign: 'center' }}>
+                <div key={macro.label} style={{ textAlign: 'center', flex: 1 }}>
                   <div style={{
                     fontFamily: '"Manrope", sans-serif',
-                    fontSize: 'var(--font-md)',
+                    fontSize: 'var(--font-sm)',
                     fontWeight: 600,
                     color: macro.highlight ? theme.accent : theme.text,
                   }}>
@@ -1105,8 +1256,9 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
                   </div>
                   <div style={{
                     fontFamily: '"Manrope", sans-serif',
-                    fontSize: 'var(--font-xs)',
+                    fontSize: '9px',
                     color: theme.textMuted,
+                    textTransform: 'uppercase',
                   }}>
                     {macro.label}
                   </div>
@@ -1121,7 +1273,8 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
       <div style={{
         display: 'flex',
         gap: 'var(--spacing-sm)',
-        paddingTop: 'var(--spacing-md)',
+        paddingTop: 'var(--spacing-sm)',
+        flexShrink: 0,
       }}>
         <button
           onClick={() => handleVote(false)}
@@ -1131,7 +1284,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
             background: theme.bgTertiary,
             border: `1px solid ${theme.border}`,
             borderRadius: 'var(--radius-md)',
-            padding: 'var(--spacing-md)',
+            padding: 'var(--spacing-sm)',
             cursor: 'pointer',
             fontFamily: '"Manrope", sans-serif',
             fontSize: 'var(--font-md)',
@@ -1152,7 +1305,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
             background: theme.success,
             border: 'none',
             borderRadius: 'var(--radius-md)',
-            padding: 'var(--spacing-md)',
+            padding: 'var(--spacing-sm)',
             cursor: 'pointer',
             fontFamily: '"Manrope", sans-serif',
             fontSize: 'var(--font-md)',
@@ -1564,37 +1717,54 @@ export default function App() {
         background: theme.bg,
         position: 'relative',
         boxShadow: `0 0 40px ${theme.shadow}`,
+        display: 'flex',
+        flexDirection: 'column',
       }}>
-        <ThemeToggle isDark={isDark} setIsDark={setIsDark} />
+        <Header 
+          currentPage={currentPage} 
+          setCurrentPage={setCurrentPage} 
+          isDark={isDark} 
+          setIsDark={setIsDark} 
+        />
         
-        {currentPage === 'home' && (
-          <HomePage 
-            snacks={snacks} 
-            setSelectedSnack={setSelectedSnack}
-            setCurrentPage={setCurrentPage}
-            openLightbox={openLightbox}
-            resetRankings={resetRankings}
-          />
-        )}
-        {currentPage === 'swipe' && (
-          <SwipePage 
-            snacks={snacks} 
-            setSnacks={setSnacks}
-            setSelectedSnack={setSelectedSnack}
-            setCurrentPage={setCurrentPage}
-            openLightbox={openLightbox}
-          />
-        )}
-        {currentPage === 'profile' && (
-          <ProfilePage 
-            snack={selectedSnack} 
-            snacks={snacks}
-            setCurrentPage={setCurrentPage}
-            openLightbox={openLightbox}
-          />
-        )}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          {currentPage === 'home' && (
+            <HomePage 
+              snacks={snacks} 
+              setSelectedSnack={setSelectedSnack}
+              setCurrentPage={setCurrentPage}
+              openLightbox={openLightbox}
+            />
+          )}
+          {currentPage === 'swipe' && (
+            <SwipePage 
+              snacks={snacks} 
+              setSnacks={setSnacks}
+              setSelectedSnack={setSelectedSnack}
+              setCurrentPage={setCurrentPage}
+              openLightbox={openLightbox}
+            />
+          )}
+          {currentPage === 'profile' && (
+            <ProfilePage 
+              snack={selectedSnack} 
+              snacks={snacks}
+              setCurrentPage={setCurrentPage}
+              openLightbox={openLightbox}
+            />
+          )}
+          {currentPage === 'about' && (
+            <AboutPage setCurrentPage={setCurrentPage} />
+          )}
+        </div>
         
-        <Nav currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        {(currentPage === 'home' || currentPage === 'about') && (
+          <Footer 
+            resetRankings={resetRankings} 
+            setCurrentPage={setCurrentPage}
+            totalVotes={snacks.reduce((sum, s) => sum + (s.totalVotes || 0), 0)}
+          />
+        )}
       </div>
     </ThemeContext.Provider>
   );
