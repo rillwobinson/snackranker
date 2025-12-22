@@ -186,7 +186,6 @@ const initialSnacks = [
   { id: 22, name: 'Barebells', brand: 'Barebells', flavour: 'Chocolate Dough', protein: 20, calories: 200, sugar: 1, fiber: 6, price: 4.79, description: 'Cookie-dough inspired bar', rating: 0, yesVotes: 0, totalVotes: 0 },
   { id: 23, name: 'Barebells', brand: 'Barebells', flavour: 'Birthday Cake', protein: 20, calories: 200, sugar: 1, fiber: 6, price: 4.79, description: 'Cake-style protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
   { id: 24, name: 'TRUBAR', brand: 'TRUBAR', flavour: 'Oh Oh Cookie Dough', protein: 12, calories: 230, sugar: 12, fiber: 4, price: 3.49, description: 'Plant-based protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 25, name: 'TRUBAR', brand: 'TRUBAR', flavour: "Don't Go Bananas", protein: 12, calories: 230, sugar: 11, fiber: 4, price: 3.49, description: 'Banana-based vegan protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
   { id: 26, name: 'TRUBAR', brand: 'TRUBAR', flavour: 'Get In My Belly', protein: 12, calories: 230, sugar: 12, fiber: 4, price: 3.49, description: 'Peanut butter chocolate vegan bar', rating: 0, yesVotes: 0, totalVotes: 0 },
   { id: 27, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'Oreo', protein: 20, calories: 210, sugar: 1, fiber: 8, price: 4.49, description: 'Low-sugar, layered protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
   { id: 28, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'White Chocolate Salted Peanut', protein: 20, calories: 210, sugar: 1, fiber: 8, price: 4.49, description: 'Sweet-salty high protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
@@ -775,7 +774,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
   const theme = useContext(ThemeContext);
   const visitorId = getVisitorId();
   
-  // Get user votes from localStorage (for tracking what this user voted on)
+  // Get user votes from localStorage
   const [userVotes, setUserVotes] = useState(() => {
     const saved = localStorage.getItem('snackranker-votes');
     if (saved) {
@@ -788,8 +787,18 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
     return {};
   });
   
-  // Find bars that haven't been voted on yet
-  const unvotedBars = snacks.filter(s => !(s.id in userVotes));
+  // Shuffle array helper
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+  
+  // Create shuffled order on mount
+  const [shuffledSnacks, setShuffledSnacks] = useState(() => shuffleArray(snacks));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [swipeDirection, setSwipeDirection] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -799,10 +808,13 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
   const [touchCurrent, setTouchCurrent] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   
-  const currentSnack = unvotedBars[currentIndex];
+  const currentSnack = shuffledSnacks[currentIndex];
+  const hasVotedOnCurrent = currentSnack ? currentSnack.id in userVotes : false;
+  const previousVoteOnCurrent = hasVotedOnCurrent ? (userVotes[currentSnack.id] ? '👍' : '👎') : null;
   const votedCount = Object.keys(userVotes).length;
   const totalBars = snacks.length;
-  const progress = (votedCount / totalBars) * 100;
+  const progress = (currentIndex / totalBars) * 100;
+  const allDone = currentIndex >= totalBars;
   
   // Calculate drag offset
   const dragOffset = isDragging && touchStart && touchCurrent 
@@ -835,6 +847,10 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
     }
     
     setTimeout(() => {
+      // Check if changing vote
+      const hadPreviousVote = currentSnack.id in userVotes;
+      const previousVote = userVotes[currentSnack.id];
+      
       // Update user's local vote tracking
       const newVotes = { ...userVotes, [currentSnack.id]: liked };
       setUserVotes(newVotes);
@@ -842,9 +858,6 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
       // Update bar's vote count locally
       setSnacks(prev => prev.map(s => {
         if (s.id === currentSnack.id) {
-          const hadPreviousVote = s.id in userVotes;
-          const previousVote = userVotes[s.id];
-          
           let newYesVotes = s.yesVotes || 0;
           let newTotalVotes = s.totalVotes || 0;
           
@@ -865,6 +878,9 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         }
         return s;
       }));
+      
+      // Move to next card
+      setCurrentIndex(prev => prev + 1);
       
       setSwipeDirection(null);
       setIsAnimating(false);
@@ -892,21 +908,20 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
   const handleTouchEnd = () => {
     if (!isDragging || isAnimating) return;
     
-    const threshold = 100; // pixels needed to trigger swipe
+    const threshold = 100;
     
     if (dragOffset > threshold) {
-      handleVote(true); // Swipe right = yes
+      handleVote(true);
     } else if (dragOffset < -threshold) {
-      handleVote(false); // Swipe left = no
+      handleVote(false);
     } else {
-      // Reset if not swiped far enough
       setIsDragging(false);
       setTouchStart(null);
       setTouchCurrent(null);
     }
   };
   
-  // Mouse handlers for desktop
+  // Mouse handlers
   const handleMouseDown = (e) => {
     if (isAnimating) return;
     setTouchStart({ x: e.clientX, y: e.clientY });
@@ -929,50 +944,13 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
     }
   };
   
-  const resetVotes = async () => {
-    if (window.confirm('Clear all your votes and start over?')) {
-      // Delete this user's votes from Supabase
-      try {
-        const deleteResult = await supabase.from('votes').delete();
-        await deleteResult.eq('visitor_id', visitorId);
-      } catch (err) {
-        console.error('Error deleting votes:', err);
-      }
-      
-      setUserVotes({});
-      setCurrentIndex(0);
-      
-      // Refetch all votes to get accurate counts
-      try {
-        const { data: votes } = await supabase.from('votes').select('*');
-        const voteCounts = {};
-        (votes || []).forEach(vote => {
-          if (!voteCounts[vote.bar_id]) {
-            voteCounts[vote.bar_id] = { yesVotes: 0, totalVotes: 0 };
-          }
-          voteCounts[vote.bar_id].totalVotes++;
-          if (vote.liked) {
-            voteCounts[vote.bar_id].yesVotes++;
-          }
-        });
-        
-        setSnacks(prev => prev.map(s => {
-          const counts = voteCounts[s.id] || { yesVotes: 0, totalVotes: 0 };
-          return {
-            ...s,
-            yesVotes: counts.yesVotes,
-            totalVotes: counts.totalVotes,
-            rating: counts.totalVotes > 0 ? Math.round((counts.yesVotes / counts.totalVotes) * 100) : 0
-          };
-        }));
-      } catch (err) {
-        console.error('Error refetching votes:', err);
-      }
-    }
+  const startOver = () => {
+    setShuffledSnacks(shuffleArray(snacks));
+    setCurrentIndex(0);
   };
 
-  // All bars voted
-  if (!currentSnack) {
+  // All bars done
+  if (allDone) {
     return (
       <div style={{
         flex: 1,
@@ -1024,7 +1002,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
             View Rankings
           </button>
           <button
-            onClick={resetVotes}
+            onClick={startOver}
             style={{
               background: 'transparent',
               border: `1px solid ${theme.border}`,
@@ -1036,9 +1014,17 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
               color: theme.textMuted,
             }}
           >
-            Start Over
+            Rate Again
           </button>
         </div>
+        <p style={{
+          fontFamily: '"Manrope", sans-serif',
+          fontSize: 'var(--font-xs)',
+          color: theme.textMuted,
+          marginTop: 'var(--spacing-md)',
+        }}>
+          Rating again will update your previous votes
+        </p>
       </div>
     );
   }
@@ -1112,6 +1098,19 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
           }} />
         </div>
       </div>
+
+      {/* Previous vote indicator */}
+      {hasVotedOnCurrent && !isDragging && (
+        <div style={{
+          textAlign: 'center',
+          marginBottom: 'var(--spacing-xs)',
+          fontFamily: '"Manrope", sans-serif',
+          fontSize: 'var(--font-xs)',
+          color: theme.textMuted,
+        }}>
+          Previously voted: {previousVoteOnCurrent} · swipe to update
+        </div>
+      )}
 
       {/* Swipe hint indicators */}
       <div style={{
