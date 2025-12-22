@@ -1271,7 +1271,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
       {/* Vote Buttons */}
       <div style={{
         display: 'flex',
-        gap: 'var(--spacing-sm)',
+        gap: 'var(--spacing-xs)',
         paddingTop: 'var(--spacing-sm)',
         flexShrink: 0,
       }}>
@@ -1294,6 +1294,25 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
           }}
         >
           👎 Nope
+        </button>
+        
+        <button
+          onClick={() => setCurrentIndex(prev => prev + 1)}
+          disabled={isAnimating}
+          style={{
+            padding: 'var(--spacing-sm)',
+            background: 'transparent',
+            border: `1px solid ${theme.border}`,
+            borderRadius: 'var(--radius-md)',
+            cursor: 'pointer',
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-xs)',
+            color: theme.textMuted,
+            transition: 'all 0.15s ease',
+            opacity: isAnimating ? 0.5 : 1,
+          }}
+        >
+          Skip
         </button>
         
         <button
