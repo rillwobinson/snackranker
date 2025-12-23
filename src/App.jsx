@@ -161,61 +161,8 @@ const getFlavourColour = (flavour) => {
 };
 
 // Real protein bar data
-const initialSnacks = [
-  { id: 1, name: 'Built Puff', brand: 'Built', flavour: 'Brownie Batter', protein: 17, calories: 130, sugar: 4, fiber: 4, price: 4.99, description: 'Marshmallow-style protein bar, chocolate coated', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 2, name: 'Built Puff', brand: 'Built', flavour: 'Coconut', protein: 17, calories: 140, sugar: 5, fiber: 3, price: 4.99, description: 'Coconut-flavoured puff protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 3, name: 'Built Puff', brand: 'Built', flavour: 'Churro', protein: 17, calories: 140, sugar: 4, fiber: 4, price: 4.99, description: 'Cinnamon churro-inspired puff bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 4, name: 'Built Puff', brand: 'Built', flavour: 'Salted Caramel', protein: 17, calories: 140, sugar: 5, fiber: 3, price: 4.99, description: 'Sweet caramel with salt, marshmallow texture', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 5, name: 'Built Puff', brand: 'Built', flavour: 'Mint Chocolate Chip', protein: 17, calories: 140, sugar: 5, fiber: 3, price: 4.99, description: 'Mint chocolate puff protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 6, name: 'Built Puff', brand: 'Built', flavour: 'Cookies & Cream', protein: 17, calories: 140, sugar: 5, fiber: 3, price: 4.99, description: 'Cookies & cream marshmallow protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 7, name: 'RXBAR', brand: 'RXBAR', flavour: 'Peanut Butter Chocolate', protein: 12, calories: 210, sugar: 15, fiber: 5, price: 3.49, description: 'Minimal-ingredient bar with dates & egg whites', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 8, name: 'RXBAR', brand: 'RXBAR', flavour: 'Chocolate Sea Salt', protein: 12, calories: 210, sugar: 14, fiber: 5, price: 3.49, description: 'Cocoa-based bar with sea salt', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 9, name: 'RXBAR', brand: 'RXBAR', flavour: 'Blueberry', protein: 12, calories: 210, sugar: 15, fiber: 5, price: 3.49, description: 'Fruit-forward protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 10, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Cookies & Cream', protein: 18, calories: 190, sugar: 2, fiber: 9, price: 3.99, description: 'Whey-based high-protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 11, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Chocolate Peanut Butter', protein: 18, calories: 190, sugar: 2, fiber: 9, price: 3.99, description: 'Chocolate PB whey protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 12, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Cookie Dough', protein: 18, calories: 190, sugar: 2, fiber: 9, price: 3.99, description: 'Cookie dough flavoured protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 13, name: 'ONE Bar', brand: 'ONE Brands', flavour: 'Chocolate Chip Cookie Dough', protein: 20, calories: 220, sugar: 1, fiber: 9, price: 3.99, description: 'High-protein, low sugar bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 14, name: 'ONE Bar', brand: 'ONE Brands', flavour: 'Birthday Cake', protein: 20, calories: 220, sugar: 1, fiber: 9, price: 3.99, description: 'Birthday cake flavoured protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 15, name: 'ONE Bar', brand: 'ONE Brands', flavour: "Hershey's Cookies & Cream", protein: 20, calories: 220, sugar: 1, fiber: 9, price: 3.99, description: "Licensed Hershey's flavour", rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 16, name: 'ONE Bar', brand: 'ONE Brands', flavour: "Reese's Peanut Butter", protein: 20, calories: 220, sugar: 1, fiber: 9, price: 3.99, description: "Reese's PB flavour protein bar", rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 17, name: 'Alani Nu Protein Bar', brand: 'Alani Nu', flavour: 'Chocolate Cake', protein: 15, calories: 170, sugar: 3, fiber: 7, price: 3.99, description: 'Dessert-style protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 18, name: 'Alani Nu Protein Bar', brand: 'Alani Nu', flavour: 'Peanut Butter Chocolate', protein: 15, calories: 170, sugar: 3, fiber: 7, price: 3.99, description: 'Sweet PB chocolate flavour', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 19, name: 'Barebells', brand: 'Barebells', flavour: 'Cookies & Cream', protein: 20, calories: 200, sugar: 1, fiber: 6, price: 4.79, description: 'Soft milk-chocolate coated bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 20, name: 'Barebells', brand: 'Barebells', flavour: 'Creamy Crisp', protein: 20, calories: 200, sugar: 1, fiber: 6, price: 4.79, description: 'Crispy texture with milk chocolate', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 21, name: 'Barebells', brand: 'Barebells', flavour: 'Caramel Cashew', protein: 20, calories: 200, sugar: 2, fiber: 6, price: 4.79, description: 'Caramel and cashew flavour', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 22, name: 'Barebells', brand: 'Barebells', flavour: 'Chocolate Dough', protein: 20, calories: 200, sugar: 1, fiber: 6, price: 4.79, description: 'Cookie-dough inspired bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 23, name: 'Barebells', brand: 'Barebells', flavour: 'Birthday Cake', protein: 20, calories: 200, sugar: 1, fiber: 6, price: 4.79, description: 'Cake-style protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 24, name: 'TRUBAR', brand: 'TRUBAR', flavour: 'Oh Oh Cookie Dough', protein: 12, calories: 230, sugar: 12, fiber: 4, price: 3.49, description: 'Plant-based protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 26, name: 'TRUBAR', brand: 'TRUBAR', flavour: 'Get In My Belly', protein: 12, calories: 230, sugar: 12, fiber: 4, price: 3.49, description: 'Peanut butter chocolate vegan bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 27, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'Oreo', protein: 20, calories: 210, sugar: 1, fiber: 8, price: 4.49, description: 'Low-sugar, layered protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 28, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'White Chocolate Salted Peanut', protein: 20, calories: 210, sugar: 1, fiber: 8, price: 4.49, description: 'Sweet-salty high protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 29, name: 'Quest Bar', brand: 'Quest', flavour: 'Chocolate Chip Cookie Dough', protein: 20, calories: 190, sugar: 1, fiber: 14, price: 6.49, description: 'High fibre, low sugar protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 30, name: 'Quest Bar', brand: 'Quest', flavour: 'Cookies & Cream', protein: 20, calories: 190, sugar: 1, fiber: 14, price: 6.49, description: 'Whey + fibre protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 31, name: 'Legendary Protein Pastry', brand: 'Legendary Foods', flavour: 'Cinnamon Roll', protein: 20, calories: 200, sugar: 2, fiber: 7, price: 4.99, description: 'Pop-tart style protein pastry', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 32, name: 'Legendary Protein Pastry', brand: 'Legendary Foods', flavour: 'Chocolate Cake', protein: 20, calories: 200, sugar: 2, fiber: 7, price: 4.99, description: 'Soft-baked protein pastry', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 33, name: 'Warrior Crunch', brand: 'Warrior', flavour: 'Chocolate Chip Cookie Dough', protein: 20, calories: 220, sugar: 2, fiber: 7, price: 4.49, description: 'Crispy layered protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 34, name: 'Love Good Fats', brand: 'Love Good Fats', flavour: 'Chocolate Chip Cookie Dough', protein: 20, calories: 220, sugar: 2, fiber: 8, price: 3.99, description: 'Keto-friendly fat-forward bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  // New bars from Loblaws
-  { id: 35, name: 'TRUBAR', brand: 'TRUBAR', flavour: "It's Chip To Be Mint", protein: 12, calories: 230, sugar: 11, fiber: 4, price: 3.49, description: 'Mint chocolate plant-based bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 36, name: 'TRUBAR', brand: 'TRUBAR', flavour: 'Daydreaming About Donuts', protein: 12, calories: 230, sugar: 12, fiber: 4, price: 3.49, description: 'Donut flavoured plant-based bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 37, name: 'TRUBAR', brand: 'TRUBAR', flavour: 'PB & Jelly', protein: 12, calories: 230, sugar: 11, fiber: 4, price: 3.49, description: 'Peanut butter and jelly plant-based bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 38, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Chocolate Salted Caramel', protein: 20, calories: 190, sugar: 2, fiber: 2, price: 2.49, description: 'High protein low sugar bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 39, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Chocolate Peanut Caramel', protein: 20, calories: 200, sugar: 2, fiber: 2, price: 2.49, description: 'Peanut caramel protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 40, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Lemon Cake', protein: 20, calories: 190, sugar: 2, fiber: 2, price: 2.49, description: 'Lemon flavoured protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 41, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Chocolate Deluxe', protein: 21, calories: 180, sugar: 2, fiber: 2, price: 2.49, description: 'Rich chocolate protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 42, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Birthday Cake', protein: 20, calories: 190, sugar: 2, fiber: 2, price: 2.49, description: 'Birthday cake flavoured protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 43, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Chocolate Peanut Butter', protein: 18, calories: 240, sugar: 3, fiber: 3, price: 4.49, description: 'New Zealand whey protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 44, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Cookies & Cream', protein: 18, calories: 230, sugar: 3, fiber: 3, price: 4.49, description: 'Cookies and cream whey bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 45, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Cinnabun', protein: 17, calories: 240, sugar: 4, fiber: 3, price: 4.49, description: 'Cinnamon bun flavoured whey bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 46, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'Caramel Chaos', protein: 21, calories: 220, sugar: 2, fiber: 7, price: 4.49, description: 'Low carb caramel protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 47, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'Fudged Up', protein: 21, calories: 215, sugar: 2, fiber: 7, price: 4.49, description: 'Chocolate fudge low carb bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 48, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'Salted Peanut', protein: 22, calories: 220, sugar: 2, fiber: 6, price: 4.49, description: 'Salted peanut protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 49, name: 'Power Crunch', brand: 'Power Crunch', flavour: 'Strawberry Creme', protein: 13, calories: 200, sugar: 5, fiber: 0, price: 3.49, description: 'Crispy wafer protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 50, name: 'Power Crunch', brand: 'Power Crunch', flavour: 'Peanut Butter Fudge', protein: 13, calories: 200, sugar: 5, fiber: 0, price: 3.49, description: 'Peanut butter wafer bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 51, name: 'Quest Bar', brand: 'Quest', flavour: 'Double Chocolate Chunk', protein: 20, calories: 180, sugar: 1, fiber: 14, price: 3.99, description: 'High fiber chocolate bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 52, name: 'Quest Bar', brand: 'Quest', flavour: 'Peanut Butter Brownie', protein: 20, calories: 200, sugar: 1, fiber: 13, price: 3.99, description: 'Peanut butter high fiber bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 35, name: 'SimplyProtein Crispy', brand: 'SimplyProtein', flavour: 'Peanut Butter Chocolate', protein: 13, calories: 150, sugar: 1, fiber: 5, price: 2.75, description: 'Crispy soy-based protein bars', rating: 0, yesVotes: 0, totalVotes: 0 },
-];
+// Initial empty state - bars loaded from JSON
+const initialSnacks = [];
 
 // Lightbox Component
 const Lightbox = ({ imageUrl, alt, onClose }) => {
@@ -1677,7 +1624,7 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
 // Main App
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [snacks, setSnacks] = useState(initialSnacks);
+  const [snacks, setSnacks] = useState([]);
   const [selectedSnack, setSelectedSnack] = useState(null);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('snackranker-theme');
@@ -1688,14 +1635,28 @@ export default function App() {
 
   const visitorId = getVisitorId();
 
-  // Fetch all votes from Supabase on load
+  // Fetch bars from JSON and votes from Supabase on load
   useEffect(() => {
-    const fetchVotes = async () => {
+    const fetchData = async () => {
       try {
+        // Load bars from JSON
+        const barsResponse = await fetch('/bars.json');
+        const barsData = await barsResponse.json();
+        
+        // Initialize bars with default vote values
+        const barsWithDefaults = barsData.map(bar => ({
+          ...bar,
+          rating: 0,
+          yesVotes: 0,
+          totalVotes: 0,
+        }));
+        
+        // Fetch votes from Supabase
         const { data: votes, error } = await supabase.from('votes').select('*');
         
         if (error) {
           console.error('Error fetching votes:', error);
+          setSnacks(barsWithDefaults);
           setIsLoading(false);
           return;
         }
@@ -1712,23 +1673,25 @@ export default function App() {
           }
         });
 
-        // Update snacks with vote data
-        setSnacks(prev => prev.map(s => {
-          const counts = voteCounts[s.id] || { yesVotes: 0, totalVotes: 0 };
+        // Update bars with vote data
+        const barsWithVotes = barsWithDefaults.map(bar => {
+          const counts = voteCounts[bar.id] || { yesVotes: 0, totalVotes: 0 };
           return {
-            ...s,
+            ...bar,
             yesVotes: counts.yesVotes,
             totalVotes: counts.totalVotes,
             rating: counts.totalVotes > 0 ? Math.round((counts.yesVotes / counts.totalVotes) * 100) : 0
           };
-        }));
+        });
+        
+        setSnacks(barsWithVotes);
       } catch (err) {
         console.error('Error:', err);
       }
       setIsLoading(false);
     };
 
-    fetchVotes();
+    fetchData();
   }, []);
 
   // Save theme preference

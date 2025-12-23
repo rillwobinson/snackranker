@@ -1,0 +1,98 @@
+[
+  { "id": 1, "name": "Built Puff", "brand": "Built", "flavour": "Coconut", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Light and sweet puff bar", "tier": "A" },
+  { "id": 2, "name": "Built Puff", "brand": "Built", "flavour": "Churro", "protein": 17, "calories": 140, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Marshmallow texture", "tier": "A" },
+  { "id": 3, "name": "Built Puff", "brand": "Built", "flavour": "Salted Caramel", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Sweet and salty puff bar", "tier": null },
+  { "id": 4, "name": "Built Puff", "brand": "Built", "flavour": "Cookies & Cream", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Classic cookie flavour puff", "tier": null },
+  { "id": 5, "name": "Built Puff", "brand": "Built", "flavour": "Brownie Batter", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Rich brownie puff bar", "tier": null },
+  { "id": 6, "name": "Built Puff", "brand": "Built", "flavour": "Mint Chocolate Chip", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Refreshing mint puff bar", "tier": null },
+  { "id": 7, "name": "Built Puff", "brand": "Built", "flavour": "Coconut Brownie", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Light and sweet", "tier": "A" },
+  { "id": 8, "name": "Built Puff", "brand": "Built", "flavour": "Chocolate Chip Cookie Dough", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Dessert-like", "tier": "A" },
+  { "id": 9, "name": "Built Bar", "brand": "Built", "flavour": "Coconut Almond", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Chewy", "tier": "B" },
+  { "id": 10, "name": "Built Bar", "brand": "Built", "flavour": "Peanut Butter", "protein": 17, "calories": 130, "sugar": 4, "fiber": 6, "price": 3.29, "description": "Dry", "tier": "D" },
+
+  { "id": 11, "name": "Barebells", "brand": "Barebells", "flavour": "Salty Peanut Caramel", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 4.29, "description": "Near-perfect flavour and texture", "tier": "S" },
+  { "id": 12, "name": "Barebells", "brand": "Barebells", "flavour": "Cookies & Cream", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 4.29, "description": "Excellent balance", "tier": "S" },
+  { "id": 13, "name": "Barebells", "brand": "Barebells", "flavour": "Creamy Crisp", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 4.29, "description": "Excellent crunch", "tier": "A" },
+  { "id": 14, "name": "Barebells", "brand": "Barebells", "flavour": "Salty Peanut", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 4.29, "description": "Reliable", "tier": "A" },
+  { "id": 15, "name": "Barebells", "brand": "Barebells", "flavour": "Birthday Cake", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 4.29, "description": "Birthday cake flavoured protein bar", "tier": null },
+  { "id": 16, "name": "Barebells", "brand": "Barebells", "flavour": "Caramel Cashew", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 4.29, "description": "Caramel and cashew protein bar", "tier": null },
+  { "id": 17, "name": "Barebells", "brand": "Barebells", "flavour": "Chocolate Dough", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 4.29, "description": "Chocolate cookie dough bar", "tier": null },
+
+  { "id": 18, "name": "Quest Bar", "brand": "Quest", "flavour": "Cookies & Cream", "protein": 21, "calories": 180, "sugar": 1, "fiber": 14, "price": 3.99, "description": "Dense", "tier": "B" },
+  { "id": 19, "name": "Quest Bar", "brand": "Quest", "flavour": "Chocolate Chip Cookie Dough", "protein": 20, "calories": 180, "sugar": 1, "fiber": 14, "price": 3.99, "description": "High fiber chocolate bar", "tier": null },
+  { "id": 20, "name": "Quest Bar", "brand": "Quest", "flavour": "Double Chocolate Chunk", "protein": 20, "calories": 180, "sugar": 1, "fiber": 14, "price": 3.99, "description": "High fiber chocolate bar", "tier": null },
+  { "id": 21, "name": "Quest Bar", "brand": "Quest", "flavour": "Peanut Butter Brownie", "protein": 20, "calories": 200, "sugar": 1, "fiber": 13, "price": 3.99, "description": "Peanut butter high fiber bar", "tier": null },
+  { "id": 22, "name": "Quest Hero Bar", "brand": "Quest", "flavour": "Blueberry Cobbler", "protein": 17, "calories": 180, "sugar": 4, "fiber": 12, "price": 3.99, "description": "Crunchy shell", "tier": "A" },
+  { "id": 23, "name": "Quest Hero Bar", "brand": "Quest", "flavour": "Chocolate Caramel Pecan", "protein": 17, "calories": 180, "sugar": 4, "fiber": 12, "price": 3.99, "description": "Candy-bar vibes", "tier": "A" },
+
+  { "id": 24, "name": "ONE Bar", "brand": "ONE Brands", "flavour": "Birthday Cake", "protein": 20, "calories": 220, "sugar": 1, "fiber": 9, "price": 3.99, "description": "Sweet", "tier": "B" },
+  { "id": 25, "name": "ONE Bar", "brand": "ONE Brands", "flavour": "Reese's Peanut Butter", "protein": 20, "calories": 220, "sugar": 1, "fiber": 9, "price": 3.99, "description": "Reese's PB flavour protein bar", "tier": null },
+  { "id": 26, "name": "ONE Bar", "brand": "ONE Brands", "flavour": "Hershey's Cookies & Cream", "protein": 20, "calories": 220, "sugar": 1, "fiber": 9, "price": 3.99, "description": "Licensed Hershey's flavour", "tier": null },
+  { "id": 27, "name": "ONE Bar", "brand": "ONE Brands", "flavour": "Chocolate Chip Cookie Dough", "protein": 20, "calories": 220, "sugar": 1, "fiber": 9, "price": 3.99, "description": "Cookie dough protein bar", "tier": null },
+
+  { "id": 28, "name": "Grenade Carb Killa", "brand": "Grenade", "flavour": "Oreo", "protein": 21, "calories": 220, "sugar": 2, "fiber": 7, "price": 4.49, "description": "Dessert-like", "tier": "A" },
+  { "id": 29, "name": "Grenade Carb Killa", "brand": "Grenade", "flavour": "White Chocolate Salted Peanut", "protein": 20, "calories": 220, "sugar": 2, "fiber": 6, "price": 4.49, "description": "White chocolate peanut bar", "tier": null },
+  { "id": 30, "name": "Grenade Carb Killa", "brand": "Grenade", "flavour": "Caramel Chaos", "protein": 21, "calories": 220, "sugar": 2, "fiber": 7, "price": 4.49, "description": "Low carb caramel protein bar", "tier": null },
+  { "id": 31, "name": "Grenade Carb Killa", "brand": "Grenade", "flavour": "Fudged Up", "protein": 21, "calories": 215, "sugar": 2, "fiber": 7, "price": 4.49, "description": "Chocolate fudge low carb bar", "tier": null },
+  { "id": 32, "name": "Grenade Carb Killa", "brand": "Grenade", "flavour": "Salted Peanut", "protein": 22, "calories": 220, "sugar": 2, "fiber": 6, "price": 4.49, "description": "Salted peanut protein bar", "tier": null },
+
+  { "id": 33, "name": "RXBAR", "brand": "RXBAR", "flavour": "Chocolate Sea Salt", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Dense whole-food", "tier": "C" },
+  { "id": 34, "name": "RXBAR", "brand": "RXBAR", "flavour": "Peanut Butter Chocolate", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Whole food protein bar", "tier": null },
+  { "id": 35, "name": "RXBAR", "brand": "RXBAR", "flavour": "Blueberry", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Whole food blueberry bar", "tier": null },
+  { "id": 36, "name": "RXBAR", "brand": "RXBAR", "flavour": "Peanut Butter Chocolate Chip", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Overly dense", "tier": "F" },
+
+  { "id": 37, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Oh Oh Cookie Dough", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Plant-based protein bar", "tier": null },
+  { "id": 38, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Get In My Belly", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Peanut butter chocolate vegan bar", "tier": null },
+  { "id": 39, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "It's Chip To Be Mint", "protein": 12, "calories": 230, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Mint chocolate plant-based bar", "tier": null },
+  { "id": 40, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Daydreaming About Donuts", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Donut flavoured plant-based bar", "tier": null },
+  { "id": 41, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "PB & Jelly", "protein": 12, "calories": 230, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Peanut butter and jelly plant-based bar", "tier": null },
+
+  { "id": 42, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Chocolate Salted Caramel", "protein": 20, "calories": 190, "sugar": 2, "fiber": 2, "price": 2.49, "description": "High protein low sugar bar", "tier": null },
+  { "id": 43, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Chocolate Peanut Caramel", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 2.49, "description": "Peanut caramel protein bar", "tier": null },
+  { "id": 44, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Lemon Cake", "protein": 20, "calories": 190, "sugar": 2, "fiber": 2, "price": 2.49, "description": "Lemon flavoured protein bar", "tier": null },
+  { "id": 45, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Chocolate Deluxe", "protein": 21, "calories": 180, "sugar": 2, "fiber": 2, "price": 2.49, "description": "Artificial aftertaste", "tier": "D" },
+  { "id": 46, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Birthday Cake", "protein": 20, "calories": 190, "sugar": 2, "fiber": 2, "price": 2.49, "description": "Birthday cake flavoured protein bar", "tier": null },
+
+  { "id": 47, "name": "Power Crunch", "brand": "Power Crunch", "flavour": "Peanut Butter Fudge", "protein": 13, "calories": 200, "sugar": 5, "fiber": 0, "price": 3.49, "description": "Tastes good low protein", "tier": "B" },
+  { "id": 48, "name": "Power Crunch", "brand": "Power Crunch", "flavour": "Strawberry Creme", "protein": 13, "calories": 200, "sugar": 5, "fiber": 0, "price": 3.49, "description": "Crispy wafer protein bar", "tier": null },
+
+  { "id": 49, "name": "Diesel Protein Bar", "brand": "Perfect Sports", "flavour": "Cookie Dough", "protein": 18, "calories": 240, "sugar": 3, "fiber": 3, "price": 4.49, "description": "New Zealand whey protein bar", "tier": null },
+  { "id": 50, "name": "Diesel Protein Bar", "brand": "Perfect Sports", "flavour": "Chocolate Peanut Butter", "protein": 18, "calories": 240, "sugar": 3, "fiber": 3, "price": 4.49, "description": "New Zealand whey protein bar", "tier": null },
+  { "id": 51, "name": "Diesel Protein Bar", "brand": "Perfect Sports", "flavour": "Cookies & Cream", "protein": 18, "calories": 230, "sugar": 3, "fiber": 3, "price": 4.49, "description": "Cookies and cream whey bar", "tier": null },
+  { "id": 52, "name": "Diesel Protein Bar", "brand": "Perfect Sports", "flavour": "Cinnabun", "protein": 17, "calories": 240, "sugar": 4, "fiber": 3, "price": 4.49, "description": "Cinnamon bun flavoured whey bar", "tier": null },
+
+  { "id": 53, "name": "Love Good Fats", "brand": "Love Good Fats", "flavour": "Chocolate Chip Cookie Dough", "protein": 20, "calories": 220, "sugar": 2, "fiber": 8, "price": 3.99, "description": "Keto-friendly fat-forward bar", "tier": null },
+
+  { "id": 54, "name": "Alani Nu", "brand": "Alani Nu", "flavour": "Peanut Butter Chocolate", "protein": 16, "calories": 230, "sugar": 7, "fiber": 3, "price": 3.49, "description": "Lifestyle brand protein bar", "tier": null },
+  { "id": 55, "name": "Alani Nu", "brand": "Alani Nu", "flavour": "Chocolate Cake", "protein": 16, "calories": 230, "sugar": 7, "fiber": 3, "price": 3.49, "description": "Chocolate cake protein bar", "tier": null },
+
+  { "id": 56, "name": "Snickers Hi Protein Bar", "brand": "Snickers", "flavour": "Peanut", "protein": 20, "calories": 240, "sugar": 19, "fiber": 1, "price": 3.99, "description": "Arguably tastes better than real Snickers", "tier": "S" },
+
+  { "id": 57, "name": "Larry & Lenny's Complete Cookie Bar", "brand": "Larry & Lenny's", "flavour": "Chocolate Almond Sea Salt", "protein": 16, "calories": 220, "sugar": 10, "fiber": 4, "price": 3.49, "description": "Cookie-like very fudgy", "tier": "S" },
+
+  { "id": 58, "name": "MET-Rx Big 100", "brand": "MET-Rx", "flavour": "Apple Pie", "protein": 28, "calories": 340, "sugar": 6, "fiber": 3, "price": 3.99, "description": "Dessert-like filling", "tier": "S" },
+
+  { "id": 59, "name": "Kirkland Protein Bar", "brand": "Kirkland", "flavour": "Chocolate Chip Cookie Dough", "protein": 21, "calories": 190, "sugar": 1, "fiber": 15, "price": 1.50, "description": "Chewy", "tier": "B" },
+
+  { "id": 60, "name": "Think! Protein Bar", "brand": "Think!", "flavour": "Brownie Crunch", "protein": 20, "calories": 230, "sugar": 0, "fiber": 2, "price": 2.99, "description": "Slightly chalky", "tier": "B" },
+  { "id": 61, "name": "Think! Protein Bar", "brand": "Think!", "flavour": "Chocolate Hazelnut", "protein": 20, "calories": 230, "sugar": 0, "fiber": 2, "price": 2.99, "description": "Texture issues", "tier": "D" },
+
+  { "id": 62, "name": "No Cow Protein Bar", "brand": "No Cow", "flavour": "Chocolate Fudge Brownie", "protein": 21, "calories": 190, "sugar": 1, "fiber": 16, "price": 3.49, "description": "Very fibrous", "tier": "C" },
+
+  { "id": 63, "name": "ZonePerfect Bar", "brand": "ZonePerfect", "flavour": "Chocolate Chip Cookie Dough", "protein": 14, "calories": 210, "sugar": 13, "fiber": 3, "price": 2.49, "description": "Candy-bar feel", "tier": "C" },
+
+  { "id": 64, "name": "Clif Builder's Bar", "brand": "Clif", "flavour": "Chocolate Mint", "protein": 20, "calories": 290, "sugar": 17, "fiber": 3, "price": 2.99, "description": "Chalky", "tier": "C" },
+
+  { "id": 65, "name": "Rawology Protein Bar", "brand": "Rawology", "flavour": "Salted Caramel", "protein": 12, "calories": 180, "sugar": 8, "fiber": 4, "price": 3.99, "description": "Extremely chewy", "tier": "F" },
+
+  { "id": 66, "name": "Legendary Foods Sweet Roll", "brand": "Legendary Foods", "flavour": "Cinnamon Roll", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Great taste soft texture", "tier": "S" },
+  { "id": 67, "name": "Legendary Foods Sweet Roll", "brand": "Legendary Foods", "flavour": "Chocolate", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Soft enjoyable", "tier": "A" },
+
+  { "id": 68, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Hot Fudge Sundae", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Dessert-like very enjoyable", "tier": "S" },
+  { "id": 69, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Brown Sugar Cinnamon", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Birthday cake vibes", "tier": "S" },
+  { "id": 70, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Chocolate Cake", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Flavour great texture decent", "tier": "A" },
+  { "id": 71, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Strawberry", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Sweet nostalgic", "tier": "A" },
+  { "id": 72, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Wild Berry", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Slight protein taste", "tier": "A" },
+
+  { "id": 73, "name": "SimplyProtein Crispy", "brand": "SimplyProtein", "flavour": "Peanut Butter Chocolate", "protein": 13, "calories": 150, "sugar": 1, "fiber": 5, "price": 2.75, "description": "Crispy soy-based protein bars", "tier": null }
+]
