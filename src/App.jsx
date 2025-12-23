@@ -7,8 +7,18 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // Simple Supabase client
 const supabase = {
   from: (table) => ({
-    select: async (columns = '*') => {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${columns}`, {
+    select: async (columns = '*', options = {}) => {
+      let url = `${SUPABASE_URL}/rest/v1/${table}?select=${columns}`;
+      if (options.order) {
+        url += `&order=${options.order}`;
+      }
+      if (options.limit) {
+        url += `&limit=${options.limit}`;
+      }
+      if (options.filter) {
+        url += `&${options.filter}`;
+      }
+      const res = await fetch(url, {
         headers: {
           'apikey': SUPABASE_ANON_KEY,
           'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
@@ -589,7 +599,7 @@ const AboutPage = ({ setCurrentPage }) => {
 };
 
 // Home Page
-const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox }) => {
+const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, previousRanks }) => {
   const theme = useContext(ThemeContext);
   const [displayStat, setDisplayStat] = useState(() => {
     const saved = localStorage.getItem('snackranker-display-stat');
@@ -600,6 +610,58 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox }) =>
   useEffect(() => {
     localStorage.setItem('snackranker-display-stat', displayStat);
   }, [displayStat]);
+  
+  // Movement indicator component
+  const MovementIndicator = ({ currentRank, barId }) => {
+    const prevRank = previousRanks[barId];
+    
+    // No previous data - show as new entry
+    if (prevRank === undefined) {
+      return (
+        <span style={{
+          fontSize: '10px',
+          color: theme.accent,
+          fontWeight: 700,
+        }}>
+          ●
+        </span>
+      );
+    }
+    
+    const movement = prevRank - currentRank; // positive = moved up
+    
+    if (movement > 0) {
+      return (
+        <span style={{
+          fontSize: '10px',
+          color: '#22c55e',
+          fontWeight: 700,
+        }}>
+          ▲
+        </span>
+      );
+    } else if (movement < 0) {
+      return (
+        <span style={{
+          fontSize: '10px',
+          color: '#ef4444',
+          fontWeight: 700,
+        }}>
+          ▼
+        </span>
+      );
+    } else {
+      return (
+        <span style={{
+          fontSize: '10px',
+          color: theme.textMuted,
+          fontWeight: 400,
+        }}>
+          –
+        </span>
+      );
+    }
+  };
   
   // Sort by rating with smarter logic:
   // 1. Bars with votes rank above bars with no votes
@@ -724,17 +786,25 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox }) =>
               transition: 'all 0.15s ease',
             }}
           >
-            {/* Rank */}
+            {/* Rank + Movement */}
             <div style={{
-              width: '28px',
-              fontFamily: '"Manrope", sans-serif',
-              fontSize: 'var(--font-sm)',
-              fontWeight: 600,
-              color: index < 3 ? theme.accent : theme.textMuted,
-              textAlign: 'center',
+              width: '36px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '2px',
               flexShrink: 0,
             }}>
-              {index + 1}
+              <div style={{
+                fontFamily: '"Manrope", sans-serif',
+                fontSize: 'var(--font-sm)',
+                fontWeight: 600,
+                color: index < 3 ? theme.accent : theme.textMuted,
+                textAlign: 'center',
+              }}>
+                {index + 1}
+              </div>
+              <MovementIndicator currentRank={index + 1} barId={snack.id} />
             </div>
 
             {/* Flavour Image */}
@@ -1632,10 +1702,11 @@ export default function App() {
   });
   const [lightbox, setLightbox] = useState({ open: false, imageUrl: null, alt: '' });
   const [isLoading, setIsLoading] = useState(true);
+  const [previousRanks, setPreviousRanks] = useState({});
 
   const visitorId = getVisitorId();
 
-  // Fetch bars from JSON and votes from Supabase on load
+  // Fetch bars from JSON, votes from Supabase, and previous rankings on load
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -1684,6 +1755,27 @@ export default function App() {
           };
         });
         
+        // Fetch previous day's snapshot for rank movement
+        const { data: snapshots, error: snapError } = await supabase
+          .from('rank_snapshots')
+          .select('*', { 
+            order: 'snapshot_date.desc',
+            limit: 100 
+          });
+        
+        if (!snapError && snapshots && snapshots.length > 0) {
+          // Get the most recent snapshot date
+          const latestDate = snapshots[0]?.snapshot_date;
+          // Build a map of bar_id -> previous rank
+          const prevRanks = {};
+          snapshots
+            .filter(s => s.snapshot_date === latestDate)
+            .forEach(s => {
+              prevRanks[s.bar_id] = s.rank;
+            });
+          setPreviousRanks(prevRanks);
+        }
+        
         setSnacks(barsWithVotes);
       } catch (err) {
         console.error('Error:', err);
@@ -1708,6 +1800,46 @@ export default function App() {
   const closeLightbox = () => {
     setLightbox({ open: false, imageUrl: null, alt: '' });
   };
+  
+  // Save current rankings as a snapshot (call daily via cron or manually)
+  const saveSnapshot = async () => {
+    // Sort snacks by current ranking logic
+    const sorted = [...snacks].sort((a, b) => {
+      const aVotes = a.totalVotes || 0;
+      const bVotes = b.totalVotes || 0;
+      const aRating = a.rating || 0;
+      const bRating = b.rating || 0;
+      
+      if (aVotes === 0 && bVotes === 0) return 0;
+      if (aVotes === 0) return 1;
+      if (bVotes === 0) return -1;
+      if (aRating !== bRating) return bRating - aRating;
+      if (aRating === 0 && bRating === 0) return aVotes - bVotes;
+      return bVotes - aVotes;
+    });
+    
+    // Create snapshot records
+    const today = new Date().toISOString().split('T')[0];
+    const snapshots = sorted.map((snack, index) => ({
+      bar_id: snack.id,
+      rank: index + 1,
+      approval: snack.rating || 0,
+      total_votes: snack.totalVotes || 0,
+      snapshot_date: today,
+    }));
+    
+    const { error } = await supabase.from('rank_snapshots').upsert(snapshots);
+    if (error) {
+      console.error('Error saving snapshot:', error);
+    } else {
+      console.log('Snapshot saved for', today);
+    }
+  };
+  
+  // Expose saveSnapshot to window for manual triggering (dev/admin use)
+  useEffect(() => {
+    window.saveSnapshot = saveSnapshot;
+  }, [snacks]);
   
   const resetRankings = async () => {
     if (window.confirm('Reset all rankings to default? This cannot be undone.')) {
@@ -1795,6 +1927,7 @@ export default function App() {
                   setSelectedSnack={setSelectedSnack}
                   setCurrentPage={setCurrentPage}
                   openLightbox={openLightbox}
+                  previousRanks={previousRanks}
                 />
               )}
               {currentPage === 'swipe' && (
