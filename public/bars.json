@@ -75,7 +75,6 @@
   { "id": 59, "name": "Kirkland Protein Bar", "brand": "Kirkland", "flavour": "Chocolate Chip Cookie Dough", "protein": 21, "calories": 190, "sugar": 1, "fiber": 15, "price": 1.50, "description": "Chewy", "tier": "B" },
 
   { "id": 60, "name": "Think! Protein Bar", "brand": "Think!", "flavour": "Brownie Crunch", "protein": 20, "calories": 230, "sugar": 0, "fiber": 2, "price": 2.99, "description": "Slightly chalky", "tier": "B" },
-  { "id": 61, "name": "Think! Protein Bar", "brand": "Think!", "flavour": "Chocolate Hazelnut", "protein": 20, "calories": 230, "sugar": 0, "fiber": 2, "price": 2.99, "description": "Texture issues", "tier": "D" },
 
   { "id": 62, "name": "No Cow Protein Bar", "brand": "No Cow", "flavour": "Chocolate Fudge Brownie", "protein": 21, "calories": 190, "sugar": 1, "fiber": 16, "price": 3.49, "description": "Very fibrous", "tier": "C" },
 
@@ -83,16 +82,10 @@
 
   { "id": 64, "name": "Clif Builder's Bar", "brand": "Clif", "flavour": "Chocolate Mint", "protein": 20, "calories": 290, "sugar": 17, "fiber": 3, "price": 2.99, "description": "Chalky", "tier": "C" },
 
-  { "id": 65, "name": "Rawology Protein Bar", "brand": "Rawology", "flavour": "Salted Caramel", "protein": 12, "calories": 180, "sugar": 8, "fiber": 4, "price": 3.99, "description": "Extremely chewy", "tier": "F" },
+  { "id": 66, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Hot Fudge Sundae", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Dessert-like very enjoyable", "tier": "S" },
+  { "id": 67, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Brown Sugar Cinnamon", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Birthday cake vibes", "tier": "S" },
+  { "id": 68, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Strawberry", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Sweet nostalgic", "tier": "A" },
+  { "id": 69, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Wild Berry", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Slight protein taste", "tier": "A" },
 
-  { "id": 66, "name": "Legendary Foods Sweet Roll", "brand": "Legendary Foods", "flavour": "Cinnamon Roll", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Great taste soft texture", "tier": "S" },
-  { "id": 67, "name": "Legendary Foods Sweet Roll", "brand": "Legendary Foods", "flavour": "Chocolate", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Soft enjoyable", "tier": "A" },
-
-  { "id": 68, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Hot Fudge Sundae", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Dessert-like very enjoyable", "tier": "S" },
-  { "id": 69, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Brown Sugar Cinnamon", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Birthday cake vibes", "tier": "S" },
-  { "id": 70, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Chocolate Cake", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Flavour great texture decent", "tier": "A" },
-  { "id": 71, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Strawberry", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Sweet nostalgic", "tier": "A" },
-  { "id": 72, "name": "Legendary Foods Tasty Pastry", "brand": "Legendary Foods", "flavour": "Wild Berry", "protein": 20, "calories": 180, "sugar": 1, "fiber": 3, "price": 3.99, "description": "Slight protein taste", "tier": "A" },
-
-  { "id": 73, "name": "SimplyProtein Crispy", "brand": "SimplyProtein", "flavour": "Peanut Butter Chocolate", "protein": 13, "calories": 150, "sugar": 1, "fiber": 5, "price": 2.75, "description": "Crispy soy-based protein bars", "tier": null }
+  { "id": 70, "name": "SimplyProtein Crispy", "brand": "SimplyProtein", "flavour": "Peanut Butter Chocolate", "protein": 13, "calories": 150, "sugar": 1, "fiber": 5, "price": 2.75, "description": "Crispy soy-based protein bars", "tier": null }
 ]
