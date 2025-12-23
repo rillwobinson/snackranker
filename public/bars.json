@@ -39,7 +39,6 @@
   { "id": 33, "name": "RXBAR", "brand": "RXBAR", "flavour": "Chocolate Sea Salt", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Dense whole-food", "tier": "C" },
   { "id": 34, "name": "RXBAR", "brand": "RXBAR", "flavour": "Peanut Butter Chocolate", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Whole food protein bar", "tier": null },
   { "id": 35, "name": "RXBAR", "brand": "RXBAR", "flavour": "Blueberry", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Whole food blueberry bar", "tier": null },
-  { "id": 36, "name": "RXBAR", "brand": "RXBAR", "flavour": "Peanut Butter Chocolate Chip", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Overly dense", "tier": "F" },
 
   { "id": 37, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Oh Oh Cookie Dough", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Plant-based protein bar", "tier": null },
   { "id": 38, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Get In My Belly", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Peanut butter chocolate vegan bar", "tier": null },

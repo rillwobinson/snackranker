@@ -27,19 +27,36 @@ const supabase = {
       const data = await res.json();
       return { data, error: res.ok ? null : data };
     },
-    upsert: async (rows) => {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    upsert: async (rows, onConflict = null) => {
+      const headers = {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates',
+      };
+      
+      let url = `${SUPABASE_URL}/rest/v1/${table}`;
+      if (onConflict) {
+        url += `?on_conflict=${onConflict}`;
+      }
+      
+      const res = await fetch(url, {
         method: 'POST',
-        headers: {
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'resolution=merge-duplicates',
-        },
+        headers,
         body: JSON.stringify(rows),
       });
-      const data = await res.json();
-      return { data, error: res.ok ? null : data };
+      
+      // Handle empty response (204 No Content)
+      if (res.status === 204 || res.headers.get('content-length') === '0') {
+        return { data: rows, error: null };
+      }
+      
+      try {
+        const data = await res.json();
+        return { data, error: res.ok ? null : data };
+      } catch {
+        return { data: null, error: res.ok ? null : { message: 'Parse error' } };
+      }
     },
     delete: async () => ({
       eq: async (column, value) => {
@@ -957,7 +974,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         bar_id: currentSnack.id,
         liked: liked,
         updated_at: new Date().toISOString(),
-      }]);
+      }], 'visitor_id,bar_id');
     } catch (err) {
       console.error('Error saving vote:', err);
     }
