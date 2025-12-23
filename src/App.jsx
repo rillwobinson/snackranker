@@ -194,7 +194,26 @@ const initialSnacks = [
   { id: 31, name: 'Legendary Protein Pastry', brand: 'Legendary Foods', flavour: 'Cinnamon Roll', protein: 20, calories: 200, sugar: 2, fiber: 7, price: 4.99, description: 'Pop-tart style protein pastry', rating: 0, yesVotes: 0, totalVotes: 0 },
   { id: 32, name: 'Legendary Protein Pastry', brand: 'Legendary Foods', flavour: 'Chocolate Cake', protein: 20, calories: 200, sugar: 2, fiber: 7, price: 4.99, description: 'Soft-baked protein pastry', rating: 0, yesVotes: 0, totalVotes: 0 },
   { id: 33, name: 'Warrior Crunch', brand: 'Warrior', flavour: 'Chocolate Chip Cookie Dough', protein: 20, calories: 220, sugar: 2, fiber: 7, price: 4.49, description: 'Crispy layered protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
-  { id: 34, name: 'Love Good Fats', brand: 'Love Good Fats', flavour: 'Chocolate Chip Cookie Dough', protein: 10, calories: 220, sugar: 2, fiber: 8, price: 3.99, description: 'Keto-friendly fat-forward bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 34, name: 'Love Good Fats', brand: 'Love Good Fats', flavour: 'Chocolate Chip Cookie Dough', protein: 20, calories: 220, sugar: 2, fiber: 8, price: 3.99, description: 'Keto-friendly fat-forward bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  // New bars from Loblaws
+  { id: 35, name: 'TRUBAR', brand: 'TRUBAR', flavour: "It's Chip To Be Mint", protein: 12, calories: 230, sugar: 11, fiber: 4, price: 3.49, description: 'Mint chocolate plant-based bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 36, name: 'TRUBAR', brand: 'TRUBAR', flavour: 'Daydreaming About Donuts', protein: 12, calories: 230, sugar: 12, fiber: 4, price: 3.49, description: 'Donut flavoured plant-based bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 37, name: 'TRUBAR', brand: 'TRUBAR', flavour: 'PB & Jelly', protein: 12, calories: 230, sugar: 11, fiber: 4, price: 3.49, description: 'Peanut butter and jelly plant-based bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 38, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Chocolate Salted Caramel', protein: 20, calories: 190, sugar: 2, fiber: 2, price: 2.49, description: 'High protein low sugar bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 39, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Chocolate Peanut Caramel', protein: 20, calories: 200, sugar: 2, fiber: 2, price: 2.49, description: 'Peanut caramel protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 40, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Lemon Cake', protein: 20, calories: 190, sugar: 2, fiber: 2, price: 2.49, description: 'Lemon flavoured protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 41, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Chocolate Deluxe', protein: 21, calories: 180, sugar: 2, fiber: 2, price: 2.49, description: 'Rich chocolate protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 42, name: 'Pure Protein', brand: 'Pure Protein', flavour: 'Birthday Cake', protein: 20, calories: 190, sugar: 2, fiber: 2, price: 2.49, description: 'Birthday cake flavoured protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 43, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Chocolate Peanut Butter', protein: 18, calories: 240, sugar: 3, fiber: 3, price: 4.49, description: 'New Zealand whey protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 44, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Cookies & Cream', protein: 18, calories: 230, sugar: 3, fiber: 3, price: 4.49, description: 'Cookies and cream whey bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 45, name: 'Diesel Protein Bar', brand: 'Perfect Sports', flavour: 'Cinnabun', protein: 17, calories: 240, sugar: 4, fiber: 3, price: 4.49, description: 'Cinnamon bun flavoured whey bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 46, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'Caramel Chaos', protein: 21, calories: 220, sugar: 2, fiber: 7, price: 4.49, description: 'Low carb caramel protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 47, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'Fudged Up', protein: 21, calories: 215, sugar: 2, fiber: 7, price: 4.49, description: 'Chocolate fudge low carb bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 48, name: 'Grenade Carb Killa', brand: 'Grenade', flavour: 'Salted Peanut', protein: 22, calories: 220, sugar: 2, fiber: 6, price: 4.49, description: 'Salted peanut protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 49, name: 'Power Crunch', brand: 'Power Crunch', flavour: 'Strawberry Creme', protein: 13, calories: 200, sugar: 5, fiber: 0, price: 3.49, description: 'Crispy wafer protein bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 50, name: 'Power Crunch', brand: 'Power Crunch', flavour: 'Peanut Butter Fudge', protein: 13, calories: 200, sugar: 5, fiber: 0, price: 3.49, description: 'Peanut butter wafer bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 51, name: 'Quest Bar', brand: 'Quest', flavour: 'Double Chocolate Chunk', protein: 20, calories: 180, sugar: 1, fiber: 14, price: 3.99, description: 'High fiber chocolate bar', rating: 0, yesVotes: 0, totalVotes: 0 },
+  { id: 52, name: 'Quest Bar', brand: 'Quest', flavour: 'Peanut Butter Brownie', protein: 20, calories: 200, sugar: 1, fiber: 13, price: 3.99, description: 'Peanut butter high fiber bar', rating: 0, yesVotes: 0, totalVotes: 0 },
   { id: 35, name: 'SimplyProtein Crispy', brand: 'SimplyProtein', flavour: 'Peanut Butter Chocolate', protein: 13, calories: 150, sugar: 1, fiber: 5, price: 2.75, description: 'Crispy soy-based protein bars', rating: 0, yesVotes: 0, totalVotes: 0 },
 ];
 
@@ -255,6 +274,43 @@ const Lightbox = ({ imageUrl, alt, onClose }) => {
           cursor: 'default',
         }}
       />
+    </div>
+  );
+};
+
+// Loading Spinner Component
+const LoadingSpinner = ({ theme }) => {
+  return (
+    <div style={{
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: theme.bg,
+      gap: 'var(--spacing-md)',
+    }}>
+      <div style={{
+        width: '36px',
+        height: '36px',
+        border: `3px solid ${theme.border}`,
+        borderTopColor: theme.accent,
+        borderRadius: '50%',
+        animation: 'spin 0.8s linear infinite',
+      }} />
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+      <p style={{
+        fontFamily: '"Manrope", sans-serif',
+        fontSize: 'var(--font-sm)',
+        color: theme.textMuted,
+        margin: 0,
+      }}>
+        Loading rankings...
+      </p>
     </div>
   );
 };
@@ -437,43 +493,62 @@ const Footer = ({ resetRankings, setCurrentPage, totalVotes }) => {
     <footer style={{
       borderTop: `1px solid ${theme.border}`,
       padding: 'var(--spacing-sm) var(--spacing-md)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
       background: theme.bg,
     }}>
-      <button
-        onClick={() => setCurrentPage('about')}
-        style={{
-          background: 'transparent',
-          border: 'none',
-          padding: 0,
-          cursor: 'pointer',
-          fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-xs)',
-          color: theme.textMuted,
-        }}
-      >
-        About SnackRanker
-      </button>
-      
-      {totalVotes > 0 && (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 'var(--spacing-xs)',
+      }}>
         <button
-          onClick={resetRankings}
+          onClick={() => setCurrentPage('about')}
           style={{
             background: 'transparent',
-            border: `1px solid ${theme.border}`,
-            borderRadius: 'var(--radius-sm)',
-            padding: 'var(--spacing-xs) var(--spacing-sm)',
+            border: 'none',
+            padding: 0,
             cursor: 'pointer',
             fontFamily: '"Manrope", sans-serif',
             fontSize: 'var(--font-xs)',
             color: theme.textMuted,
           }}
         >
-          Reset My Votes
+          About
         </button>
-      )}
+        
+        <a
+          href="https://tally.so/r/9qXM2p"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-xs)',
+            color: theme.accent,
+            textDecoration: 'none',
+            fontWeight: 600,
+          }}
+        >
+          Give Feedback ↗
+        </a>
+        
+        {totalVotes > 0 && (
+          <button
+            onClick={resetRankings}
+            style={{
+              background: 'transparent',
+              border: `1px solid ${theme.border}`,
+              borderRadius: 'var(--radius-sm)',
+              padding: 'var(--spacing-xs) var(--spacing-sm)',
+              cursor: 'pointer',
+              fontFamily: '"Manrope", sans-serif',
+              fontSize: 'var(--font-xs)',
+              color: theme.textMuted,
+            }}
+          >
+            Reset
+          </button>
+        )}
+      </div>
     </footer>
   );
 };
@@ -911,7 +986,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
       setIsDragging(false);
       setTouchStart(null);
       setTouchCurrent(null);
-    }, 300);
+    }, 150);
   };
   
   // Touch handlers
@@ -1171,7 +1246,17 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         display: 'flex',
         flexDirection: 'column',
         minHeight: 0,
+        position: 'relative',
       }}>
+        {/* Preload next image */}
+        {shuffledSnacks[currentIndex + 1] && (
+          <link 
+            rel="preload" 
+            as="image" 
+            href={`/bars/${getImageFilename(shuffledSnacks[currentIndex + 1].brand, shuffledSnacks[currentIndex + 1].flavour)}`} 
+          />
+        )}
+        
         <div
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -1184,7 +1269,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
             overflow: 'hidden',
             transform: getCardTransform(),
             opacity: isAnimating ? 0 : (isDragging ? dragOpacity : 1),
-            transition: isDragging ? 'none' : 'all 0.3s ease',
+            transition: isDragging ? 'none' : 'all 0.15s ease',
             cursor: isDragging ? 'grabbing' : 'grab',
             touchAction: 'pan-y',
             display: 'flex',
@@ -1737,33 +1822,39 @@ export default function App() {
         />
         
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          {currentPage === 'home' && (
-            <HomePage 
-              snacks={snacks} 
-              setSelectedSnack={setSelectedSnack}
-              setCurrentPage={setCurrentPage}
-              openLightbox={openLightbox}
-            />
-          )}
-          {currentPage === 'swipe' && (
-            <SwipePage 
-              snacks={snacks} 
-              setSnacks={setSnacks}
-              setSelectedSnack={setSelectedSnack}
-              setCurrentPage={setCurrentPage}
-              openLightbox={openLightbox}
-            />
-          )}
-          {currentPage === 'profile' && (
-            <ProfilePage 
-              snack={selectedSnack} 
-              snacks={snacks}
-              setCurrentPage={setCurrentPage}
-              openLightbox={openLightbox}
-            />
-          )}
-          {currentPage === 'about' && (
-            <AboutPage setCurrentPage={setCurrentPage} />
+          {isLoading ? (
+            <LoadingSpinner theme={theme} />
+          ) : (
+            <>
+              {currentPage === 'home' && (
+                <HomePage 
+                  snacks={snacks} 
+                  setSelectedSnack={setSelectedSnack}
+                  setCurrentPage={setCurrentPage}
+                  openLightbox={openLightbox}
+                />
+              )}
+              {currentPage === 'swipe' && (
+                <SwipePage 
+                  snacks={snacks} 
+                  setSnacks={setSnacks}
+                  setSelectedSnack={setSelectedSnack}
+                  setCurrentPage={setCurrentPage}
+                  openLightbox={openLightbox}
+                />
+              )}
+              {currentPage === 'profile' && (
+                <ProfilePage 
+                  snack={selectedSnack} 
+                  snacks={snacks}
+                  setCurrentPage={setCurrentPage}
+                  openLightbox={openLightbox}
+                />
+              )}
+              {currentPage === 'about' && (
+                <AboutPage setCurrentPage={setCurrentPage} />
+              )}
+            </>
           )}
         </div>
         
