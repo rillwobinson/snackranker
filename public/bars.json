@@ -41,10 +41,9 @@
   { "id": 35, "name": "RXBAR", "brand": "RXBAR", "flavour": "Blueberry", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Whole food blueberry bar", "tier": null },
 
   { "id": 37, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Oh Oh Cookie Dough", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Plant-based protein bar", "tier": null },
-  { "id": 38, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Get In My Belly", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Peanut butter chocolate vegan bar", "tier": null },
+  { "id": 38, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "PB & Jelly", "protein": 12, "calories": 190, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Peanut butter and jelly plant-based bar", "tier": null },
   { "id": 39, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "It's Chip To Be Mint", "protein": 12, "calories": 230, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Mint chocolate plant-based bar", "tier": null },
   { "id": 40, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Daydreaming About Donuts", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Donut flavoured plant-based bar", "tier": null },
-  { "id": 41, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "PB & Jelly", "protein": 12, "calories": 230, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Peanut butter and jelly plant-based bar", "tier": null },
 
   { "id": 42, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Chocolate Salted Caramel", "protein": 20, "calories": 190, "sugar": 2, "fiber": 2, "price": 2.49, "description": "High protein low sugar bar", "tier": null },
   { "id": 43, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Chocolate Peanut Caramel", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 2.49, "description": "Peanut caramel protein bar", "tier": null },
