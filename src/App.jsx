@@ -906,8 +906,12 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
                 fontFamily: '"Manrope", sans-serif',
                 fontSize: 'var(--font-xs)',
                 color: theme.textMuted,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
               }}>
                 {snack.name} · {snack.brand}
+                {snack.vegan && <span title="Vegan">🌱</span>}
               </div>
             </div>
 
@@ -1615,8 +1619,13 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
           fontSize: 'var(--font-sm)',
           color: theme.textMuted,
           margin: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '6px',
         }}>
           {snack.name} · {snack.brand}
+          {snack.vegan && <span title="Vegan" style={{ fontSize: '14px' }}>🌱</span>}
         </p>
       </div>
 

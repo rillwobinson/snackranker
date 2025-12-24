@@ -40,10 +40,10 @@
   { "id": 34, "name": "RXBAR", "brand": "RXBAR", "flavour": "Peanut Butter Chocolate", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Whole food protein bar", "tier": null },
   { "id": 35, "name": "RXBAR", "brand": "RXBAR", "flavour": "Blueberry", "protein": 12, "calories": 210, "sugar": 13, "fiber": 5, "price": 3.49, "description": "Whole food blueberry bar", "tier": null },
 
-  { "id": 37, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Oh Oh Cookie Dough", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Plant-based protein bar", "tier": null },
-  { "id": 38, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "PB & Jelly", "protein": 12, "calories": 190, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Peanut butter and jelly plant-based bar", "tier": null },
-  { "id": 39, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "It's Chip To Be Mint", "protein": 12, "calories": 230, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Mint chocolate plant-based bar", "tier": null },
-  { "id": 40, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Daydreaming About Donuts", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Donut flavoured plant-based bar", "tier": null },
+  { "id": 37, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Oh Oh Cookie Dough", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Plant-based protein bar", "vegan": true, "tier": null },
+  { "id": 38, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "PB & Jelly", "protein": 12, "calories": 190, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Peanut butter and jelly plant-based bar", "vegan": true, "tier": null },
+  { "id": 39, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "It's Chip To Be Mint", "protein": 12, "calories": 230, "sugar": 11, "fiber": 4, "price": 3.49, "description": "Mint chocolate plant-based bar", "vegan": true, "tier": null },
+  { "id": 40, "name": "TRUBAR", "brand": "TRUBAR", "flavour": "Daydreaming About Donuts", "protein": 12, "calories": 230, "sugar": 12, "fiber": 4, "price": 3.49, "description": "Donut flavoured plant-based bar", "vegan": true, "tier": null },
 
   { "id": 42, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Chocolate Salted Caramel", "protein": 20, "calories": 190, "sugar": 2, "fiber": 2, "price": 2.49, "description": "High protein low sugar bar", "tier": null },
   { "id": 43, "name": "Pure Protein", "brand": "Pure Protein", "flavour": "Chocolate Peanut Caramel", "protein": 20, "calories": 200, "sugar": 2, "fiber": 2, "price": 2.49, "description": "Peanut caramel protein bar", "tier": null },
@@ -66,7 +66,7 @@
 
   { "id": 56, "name": "Snickers Hi Protein Bar", "brand": "Snickers", "flavour": "Peanut", "protein": 20, "calories": 240, "sugar": 19, "fiber": 1, "price": 3.99, "description": "Arguably tastes better than real Snickers", "tier": "S" },
 
-  { "id": 57, "name": "Larry & Lenny's Complete Cookie Bar", "brand": "Larry & Lenny's", "flavour": "Chocolate Almond Sea Salt", "protein": 16, "calories": 220, "sugar": 10, "fiber": 4, "price": 3.49, "description": "Cookie-like very fudgy", "tier": "S" },
+  { "id": 57, "name": "Larry & Lenny's Complete Cookie Bar", "brand": "Larry & Lenny's", "flavour": "Chocolate Almond Sea Salt", "protein": 16, "calories": 220, "sugar": 10, "fiber": 4, "price": 3.49, "description": "Cookie-like very fudgy", "vegan": true, "tier": "S" },
 
   { "id": 58, "name": "MET-Rx Big 100", "brand": "MET-Rx", "flavour": "Apple Pie", "protein": 28, "calories": 340, "sugar": 6, "fiber": 3, "price": 3.99, "description": "Dessert-like filling", "tier": "S" },
 
@@ -74,7 +74,7 @@
 
   { "id": 60, "name": "Think! Protein Bar", "brand": "Think!", "flavour": "Brownie Crunch", "protein": 20, "calories": 230, "sugar": 0, "fiber": 2, "price": 2.99, "description": "Slightly chalky", "tier": "B" },
 
-  { "id": 62, "name": "No Cow Protein Bar", "brand": "No Cow", "flavour": "Chocolate Fudge Brownie", "protein": 21, "calories": 190, "sugar": 1, "fiber": 16, "price": 3.49, "description": "Very fibrous", "tier": "C" },
+  { "id": 62, "name": "No Cow Protein Bar", "brand": "No Cow", "flavour": "Chocolate Fudge Brownie", "protein": 21, "calories": 190, "sugar": 1, "fiber": 16, "price": 3.49, "description": "Very fibrous", "vegan": true, "tier": "C" },
 
   { "id": 63, "name": "ZonePerfect Bar", "brand": "ZonePerfect", "flavour": "Chocolate Chip Cookie Dough", "protein": 14, "calories": 210, "sugar": 13, "fiber": 3, "price": 2.49, "description": "Candy-bar feel", "tier": "C" },
 
