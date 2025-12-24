@@ -1636,34 +1636,7 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
         </div>
       </div>
 
-      {/* Shop Button */}
-      <div style={{ padding: '0 var(--spacing-sm) var(--spacing-sm)' }}>
-        <a
-          href={`https://www.google.com/search?tbm=shop&q=${encodeURIComponent(`${snack.brand} ${snack.flavour} protein bar`)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px',
-            width: '100%',
-            padding: 'var(--spacing-sm)',
-            background: theme.accent,
-            color: '#FFFFFF',
-            borderRadius: 'var(--radius-sm)',
-            fontFamily: '"Manrope", sans-serif',
-            fontSize: 'var(--font-sm)',
-            fontWeight: 600,
-            textDecoration: 'none',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          🛒 Find in Store
-        </a>
-      </div>
-
+     
       {/* Rank + Rating Row - Compact */}
       <div style={{
         padding: '0 var(--spacing-sm) var(--spacing-sm)',
@@ -1816,6 +1789,34 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
           </p>
         </div>
       </div>
+       {/* Shop Button */}
+      <div style={{ padding: '0 var(--spacing-sm) var(--spacing-sm)' }}>
+        <a
+          href={`https://www.google.com/search?tbm=shop&q=${encodeURIComponent(`${snack.brand} ${snack.flavour} protein bar`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            width: '100%',
+            padding: 'var(--spacing-sm)',
+            background: theme.accent,
+            color: '#FFFFFF',
+            borderRadius: 'var(--radius-sm)',
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-sm)',
+            fontWeight: 600,
+            textDecoration: 'none',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          🛒 Find in Store
+        </a>
+      </div>
+
     </div>
   );
 };
