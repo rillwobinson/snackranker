@@ -686,14 +686,15 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
   // 2. Among bars with votes, sort by approval % (high to low)
   // 3. For same approval %, more votes = more confidence = rank higher
   // 4. Bars with 0% approval (all downvotes) rank at bottom based on how many downvotes
+  // 5. Final tiebreaker: sort by ID for stability
   const sortedSnacks = [...snacks].sort((a, b) => {
     const aVotes = a.totalVotes || 0;
     const bVotes = b.totalVotes || 0;
     const aRating = a.rating || 0;
     const bRating = b.rating || 0;
     
-    // If neither has votes, maintain original order
-    if (aVotes === 0 && bVotes === 0) return 0;
+    // If neither has votes, sort by ID for stability
+    if (aVotes === 0 && bVotes === 0) return a.id - b.id;
     
     // Bars with votes rank above bars without votes
     if (aVotes === 0) return 1;
@@ -704,11 +705,15 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
     
     // Same rating - if both are 0%, fewer downvotes is better (less negative signal)
     if (aRating === 0 && bRating === 0) {
-      return aVotes - bVotes; // fewer downvotes ranks higher
+      if (aVotes !== bVotes) return aVotes - bVotes;
+      return a.id - b.id; // stable tiebreaker
     }
     
     // Same positive rating - more votes = more confidence
-    return bVotes - aVotes;
+    if (aVotes !== bVotes) return bVotes - aVotes;
+    
+    // Everything equal - sort by ID for stability
+    return a.id - b.id;
   });
   const totalVotes = snacks.reduce((sum, s) => sum + (s.totalVotes || 0), 0);
   
