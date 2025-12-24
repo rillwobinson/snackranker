@@ -1258,13 +1258,16 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         flexDirection: 'column',
         userSelect: 'none',
         overflow: 'hidden',
+        height: '100%',
+        maxHeight: '100%',
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Progress bar */}
+      {/* Progress bar - fixed height */}
       <div style={{
+        flexShrink: 0,
         marginBottom: 'var(--spacing-xs)',
       }}>
         <div style={{
@@ -1304,69 +1307,32 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         </div>
       </div>
 
-      {/* Question prompt */}
-      {!hasVotedOnCurrent && !isDragging && (
-        <div style={{
-          textAlign: 'center',
-          marginBottom: 'var(--spacing-xs)',
-          fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-sm)',
-          fontWeight: 600,
-          color: theme.text,
-        }}>
-          Would you buy this again?
-        </div>
-      )}
-
-      {/* Previous vote indicator */}
-      {hasVotedOnCurrent && !isDragging && (
-        <div style={{
-          textAlign: 'center',
-          marginBottom: 'var(--spacing-xs)',
-          fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-xs)',
-          color: theme.textMuted,
-        }}>
-          Previously voted: {previousVoteOnCurrent} · swipe to update
-        </div>
-      )}
-
-      {/* Swipe hint indicators */}
+      {/* Question prompt - fixed height */}
       <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
+        flexShrink: 0,
+        textAlign: 'center',
         marginBottom: 'var(--spacing-xs)',
+        fontFamily: '"Manrope", sans-serif',
+        fontSize: 'var(--font-sm)',
+        fontWeight: 600,
+        color: theme.text,
         minHeight: '20px',
-        opacity: isDragging ? 1 : 0,
-        transition: 'opacity 0.2s ease',
       }}>
-        <div style={{
-          fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-xs)',
-          fontWeight: 600,
-          color: dragOffset < -30 ? '#e74c3c' : theme.textMuted,
-          transition: 'color 0.2s ease',
-        }}>
-          👎 NOPE
-        </div>
-        <div style={{
-          fontFamily: '"Manrope", sans-serif',
-          fontSize: 'var(--font-xs)',
-          fontWeight: 600,
-          color: dragOffset > 30 ? theme.success : theme.textMuted,
-          transition: 'color 0.2s ease',
-        }}>
-          YES! 👍
-        </div>
+        {!hasVotedOnCurrent && !isDragging && 'Would you buy this again?'}
+        {hasVotedOnCurrent && !isDragging && (
+          <span style={{ color: theme.textMuted, fontWeight: 400 }}>
+            Previously voted: {previousVoteOnCurrent} · swipe to update
+          </span>
+        )}
       </div>
 
-      {/* Card */}
+      {/* Card - flexible middle area */}
       <div style={{
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
         minHeight: 0,
-        position: 'relative',
+        overflow: 'hidden',
       }}>
         {/* Preload next image */}
         {shuffledSnacks[currentIndex + 1] && (
@@ -1394,11 +1360,10 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
             touchAction: 'pan-y',
             display: 'flex',
             flexDirection: 'column',
-            flex: 1,
-            minHeight: 0,
+            height: '100%',
           }}
         >
-          {/* Image - takes available space */}
+          {/* Image - flexible, takes remaining space */}
           <div 
             onClick={() => {
               if (!isDragging || Math.abs(dragOffset) < 10) {
@@ -1408,10 +1373,13 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
             }}
             style={{ 
               cursor: 'pointer',
-              width: '100%',
-              aspectRatio: '1',
-              maxHeight: '55vh',
+              flex: 1,
+              minHeight: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               overflow: 'hidden',
+              padding: 'var(--spacing-xs)',
             }}
           >
             <img
@@ -1422,16 +1390,16 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
                 openLightbox(`/bars/${getImageFilename(currentSnack.brand, currentSnack.flavour)}`, `${currentSnack.brand} ${currentSnack.flavour}`);
               }}
               style={{
-                width: '100%',
-                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
                 objectFit: 'contain',
                 cursor: 'zoom-in',
               }}
             />
           </div>
           
-          {/* Info - compact */}
-          <div style={{ padding: 'var(--spacing-sm)' }}>
+          {/* Info - fixed at bottom of card */}
+          <div style={{ padding: 'var(--spacing-sm)', flexShrink: 0 }}>
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
