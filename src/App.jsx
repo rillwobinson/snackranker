@@ -460,7 +460,7 @@ const Header = ({ currentPage, setCurrentPage, isDark, setIsDark }) => {
 };
 
 // Footer Component
-const Footer = ({ resetRankings, setCurrentPage, totalVotes }) => {
+const Footer = ({ setCurrentPage, totalVotes }) => {
   const theme = useContext(ThemeContext);
   
   return (
@@ -518,24 +518,6 @@ const Footer = ({ resetRankings, setCurrentPage, totalVotes }) => {
         >
           Feedback ↗
         </a>
-        
-        {totalVotes > 0 && (
-          <button
-            onClick={resetRankings}
-            style={{
-              background: 'transparent',
-              border: `1px solid ${theme.border}`,
-              borderRadius: 'var(--radius-sm)',
-              padding: 'var(--spacing-xs) var(--spacing-sm)',
-              cursor: 'pointer',
-              fontFamily: '"Manrope", sans-serif',
-              fontSize: 'var(--font-xs)',
-              color: theme.textMuted,
-            }}
-          >
-            Reset
-          </button>
-        )}
       </div>
     </footer>
   );
@@ -1992,13 +1974,6 @@ export default function App() {
   useEffect(() => {
     window.saveSnapshot = saveSnapshot;
   }, [snacks]);
-  
-  const resetRankings = async () => {
-    if (window.confirm('Reset all rankings to default? This cannot be undone.')) {
-      // Note: This only resets local view, not the database
-      setSnacks(initialSnacks);
-    }
-  };
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -2108,7 +2083,6 @@ export default function App() {
         
         {(currentPage === 'home' || currentPage === 'about') && (
           <Footer 
-            resetRankings={resetRankings} 
             setCurrentPage={setCurrentPage}
             totalVotes={snacks.reduce((sum, s) => sum + (s.totalVotes || 0), 0)}
           />
