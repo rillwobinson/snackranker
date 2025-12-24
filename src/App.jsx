@@ -1619,13 +1619,9 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
           fontSize: 'var(--font-sm)',
           color: theme.textMuted,
           margin: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '6px',
+          textAlign: 'center',
         }}>
-          {snack.name} · {snack.brand}
-          {snack.vegan && <span title="Vegan" style={{ fontSize: '14px' }}>🌱</span>}
+          {snack.name} · {snack.brand} {snack.vegan && <span title="Vegan" style={{ fontSize: '14px' }}>🌱</span>}
         </p>
       </div>
 
