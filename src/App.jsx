@@ -570,15 +570,15 @@ const AboutPage = ({ setCurrentPage }) => {
         </h2>
         
         <p style={{ margin: '0 0 var(--spacing-sm)' }}>
-          <strong style={{ color: theme.accent }}>1. Rate</strong> — Swipe through protein bars. Right for yes, left for no. Simple.
+          <strong style={{ color: theme.accent }}>1. Rate</strong> — Would you buy this bar again? Swipe right for yes, left for no.
         </p>
         
         <p style={{ margin: '0 0 var(--spacing-sm)' }}>
-          <strong style={{ color: theme.accent }}>2. Rankings</strong> — See which bars the community loves most, sorted by approval rating.
+          <strong style={{ color: theme.accent }}>2. Rankings</strong> — See which bars people would actually buy again, before you spend money.
         </p>
         
         <p style={{ margin: '0 0 var(--spacing-md)' }}>
-          <strong style={{ color: theme.accent }}>3. Decide</strong> — Use the rankings to find bars worth your money before you buy.
+          <strong style={{ color: theme.accent }}>3. Decide</strong> — Use the community's buy-again % to find bars worth your money.
         </p>
         
         <h2 style={{
@@ -877,7 +877,7 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
                   {currentStat.label.toLowerCase()}
                 </div>
               </div>
-              <div style={{ textAlign: 'right', minWidth: '44px' }}>
+              <div style={{ textAlign: 'right', minWidth: '54px' }}>
                 <div style={{
                   fontFamily: '"Manrope", sans-serif',
                   fontSize: 'var(--font-sm)',
@@ -889,9 +889,13 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
                 <div style={{
                   fontFamily: '"Manrope", sans-serif',
                   fontSize: 'var(--font-xs)',
-                  color: theme.textMuted,
+                  color: snack.totalVotes > 0 && snack.totalVotes < 5 ? theme.accent : theme.textMuted,
                 }}>
-                  {snack.totalVotes > 0 ? `${snack.totalVotes} votes` : 'no votes'}
+                  {snack.totalVotes === 0 
+                    ? 'no votes' 
+                    : snack.totalVotes < 5 
+                      ? '🧪 new' 
+                      : `${snack.totalVotes} votes`}
                 </div>
               </div>
             </div>
@@ -1231,6 +1235,20 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
           }} />
         </div>
       </div>
+
+      {/* Question prompt */}
+      {!hasVotedOnCurrent && !isDragging && (
+        <div style={{
+          textAlign: 'center',
+          marginBottom: 'var(--spacing-xs)',
+          fontFamily: '"Manrope", sans-serif',
+          fontSize: 'var(--font-sm)',
+          fontWeight: 600,
+          color: theme.text,
+        }}>
+          Would you buy this again?
+        </div>
+      )}
 
       {/* Previous vote indicator */}
       {hasVotedOnCurrent && !isDragging && (
@@ -1604,7 +1622,7 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
             color: theme.textMuted,
             textTransform: 'uppercase',
           }}>
-            Approval
+            Buy Again
           </div>
         </div>
         
