@@ -1251,15 +1251,13 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
   return (
     <div 
       style={{
-        flex: 1,
+        height: 'calc(100svh - 60px)',
         background: theme.bg,
-        padding: 'var(--spacing-sm)',
         display: 'flex',
         flexDirection: 'column',
         userSelect: 'none',
         overflow: 'hidden',
-        height: '100%',
-        maxHeight: '100%',
+        padding: 'var(--spacing-sm)',
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -1997,14 +1995,12 @@ export default function App() {
       <div style={{
         width: 'var(--container-width)',
         margin: '0 auto',
-        height: '100svh',
-        maxHeight: '100svh',
+        minHeight: '100vh',
         background: theme.bg,
         position: 'relative',
         boxShadow: `0 0 40px ${theme.shadow}`,
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden',
       }}>
         <Header 
           currentPage={currentPage} 
@@ -2013,7 +2009,7 @@ export default function App() {
           setIsDark={setIsDark} 
         />
         
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           {isLoading ? (
             <LoadingSpinner theme={theme} />
           ) : (
