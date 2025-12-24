@@ -622,6 +622,7 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
     const saved = localStorage.getItem('snackranker-display-stat');
     return saved || 'protein';
   });
+  const [showStatMenu, setShowStatMenu] = useState(false);
   
   // Save display stat preference
   useEffect(() => {
@@ -737,7 +738,6 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 'var(--spacing-xs)',
         }}>
           <span style={{
             fontFamily: '"Manrope", sans-serif',
@@ -746,36 +746,91 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
           }}>
             {snacks.length} bars · {totalVotes} votes
           </span>
-        </div>
-        
-        {/* Stat Selector */}
-        <div style={{
-          display: 'flex',
-          gap: '6px',
-          overflowX: 'auto',
-          WebkitOverflowScrolling: 'touch',
-        }}>
-          {statOptions.map(stat => (
+          
+          {/* Stat Dropdown */}
+          <div style={{ position: 'relative' }}>
             <button
-              key={stat.id}
-              onClick={() => setDisplayStat(stat.id)}
+              onClick={() => setShowStatMenu(!showStatMenu)}
               style={{
-                background: displayStat === stat.id ? theme.accent : theme.bgTertiary,
-                border: 'none',
+                background: theme.bgTertiary,
+                border: `1px solid ${theme.border}`,
                 borderRadius: 'var(--radius-sm)',
-                padding: 'var(--spacing-xs) var(--spacing-sm)',
+                padding: '6px 10px',
                 cursor: 'pointer',
                 fontFamily: '"Manrope", sans-serif',
                 fontSize: 'var(--font-xs)',
                 fontWeight: 600,
-                color: displayStat === stat.id ? '#FFFFFF' : theme.textMuted,
-                whiteSpace: 'nowrap',
-                transition: 'all 0.15s ease',
+                color: theme.text,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
               }}
             >
-              {stat.label}
+              {currentStat.label}
+              <span style={{ 
+                fontSize: '8px',
+                opacity: 0.6,
+                transform: showStatMenu ? 'rotate(180deg)' : 'rotate(0deg)',
+                transition: 'transform 0.2s ease',
+              }}>▼</span>
             </button>
-          ))}
+            
+            {showStatMenu && (
+              <>
+                {/* Backdrop */}
+                <div 
+                  onClick={() => setShowStatMenu(false)}
+                  style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 99,
+                  }}
+                />
+                {/* Menu */}
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  right: 0,
+                  marginTop: '4px',
+                  background: theme.cardBg,
+                  border: `1px solid ${theme.border}`,
+                  borderRadius: 'var(--radius-sm)',
+                  boxShadow: `0 4px 12px ${theme.shadow}`,
+                  zIndex: 100,
+                  minWidth: '120px',
+                  overflow: 'hidden',
+                }}>
+                  {statOptions.map(stat => (
+                    <button
+                      key={stat.id}
+                      onClick={() => {
+                        setDisplayStat(stat.id);
+                        setShowStatMenu(false);
+                      }}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        padding: '10px 14px',
+                        border: 'none',
+                        background: displayStat === stat.id ? theme.bgTertiary : 'transparent',
+                        cursor: 'pointer',
+                        fontFamily: '"Manrope", sans-serif',
+                        fontSize: 'var(--font-sm)',
+                        fontWeight: displayStat === stat.id ? 600 : 400,
+                        color: displayStat === stat.id ? theme.accent : theme.text,
+                        textAlign: 'left',
+                      }}
+                    >
+                      {stat.label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
@@ -1340,8 +1395,9 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
             }}
             style={{ 
               cursor: 'pointer',
-              flex: 1,
-              minHeight: 0,
+              width: '100%',
+              aspectRatio: '1',
+              maxHeight: '55vh',
               overflow: 'hidden',
             }}
           >
@@ -1355,7 +1411,7 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
+                objectFit: 'contain',
                 cursor: 'zoom-in',
               }}
             />
