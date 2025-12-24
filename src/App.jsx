@@ -1466,11 +1466,11 @@ const SwipePage = ({ snacks, setSnacks, setSelectedSnack, setCurrentPage, openLi
         </div>
       </div>
 
-      {/* Vote Buttons */}
+      {/* Vote Buttons - fixed at bottom */}
       <div style={{
         display: 'flex',
         gap: 'var(--spacing-xs)',
-        paddingTop: 'var(--spacing-sm)',
+        paddingTop: 'var(--spacing-xs)',
         flexShrink: 0,
       }}>
         <button
@@ -1997,12 +1997,14 @@ export default function App() {
       <div style={{
         width: 'var(--container-width)',
         margin: '0 auto',
-        minHeight: '100vh',
+        height: '100svh',
+        maxHeight: '100svh',
         background: theme.bg,
         position: 'relative',
         boxShadow: `0 0 40px ${theme.shadow}`,
         display: 'flex',
         flexDirection: 'column',
+        overflow: 'hidden',
       }}>
         <Header 
           currentPage={currentPage} 
@@ -2011,7 +2013,7 @@ export default function App() {
           setIsDark={setIsDark} 
         />
         
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
           {isLoading ? (
             <LoadingSpinner theme={theme} />
           ) : (
