@@ -491,7 +491,7 @@ const Footer = ({ resetRankings, setCurrentPage, totalVotes }) => {
         </button>
         
         <a
-          href="https://tally.so/r/9qXM2p"
+          href="https://tally.so/r/yPNRXx"
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -502,7 +502,21 @@ const Footer = ({ resetRankings, setCurrentPage, totalVotes }) => {
             fontWeight: 600,
           }}
         >
-          Give Feedback ↗
+          Suggest a Bar ↗
+        </a>
+        
+        <a
+          href="https://tally.so/r/9qXM2p"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: '"Manrope", sans-serif',
+            fontSize: 'var(--font-xs)',
+            color: theme.textMuted,
+            textDecoration: 'none',
+          }}
+        >
+          Feedback ↗
         </a>
         
         {totalVotes > 0 && (
@@ -681,9 +695,12 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
     }
   };
   
+  // Minimum votes required to be ranked (bars below this go to bottom)
+  const MIN_VOTES_TO_RANK = 3;
+  
   // Sort by rating with smarter logic:
-  // 1. Bars with votes rank above bars with no votes
-  // 2. Among bars with votes, sort by approval % (high to low)
+  // 1. Bars with enough votes rank above bars without enough votes
+  // 2. Among bars with enough votes, sort by approval % (high to low)
   // 3. For same approval %, more votes = more confidence = rank higher
   // 4. Bars with 0% approval (all downvotes) rank at bottom based on how many downvotes
   // 5. Final tiebreaker: sort by ID for stability
@@ -692,15 +709,20 @@ const HomePage = ({ snacks, setSelectedSnack, setCurrentPage, openLightbox, prev
     const bVotes = b.totalVotes || 0;
     const aRating = a.rating || 0;
     const bRating = b.rating || 0;
+    const aHasEnough = aVotes >= MIN_VOTES_TO_RANK;
+    const bHasEnough = bVotes >= MIN_VOTES_TO_RANK;
     
-    // If neither has votes, sort by ID for stability
-    if (aVotes === 0 && bVotes === 0) return a.id - b.id;
+    // Bars with enough votes rank above bars without enough votes
+    if (aHasEnough && !bHasEnough) return -1;
+    if (!aHasEnough && bHasEnough) return 1;
     
-    // Bars with votes rank above bars without votes
-    if (aVotes === 0) return 1;
-    if (bVotes === 0) return -1;
+    // If neither has enough votes, sort by vote count then ID
+    if (!aHasEnough && !bHasEnough) {
+      if (aVotes !== bVotes) return bVotes - aVotes;
+      return a.id - b.id;
+    }
     
-    // Both have votes - sort by rating
+    // Both have enough votes - sort by rating
     if (aRating !== bRating) return bRating - aRating;
     
     // Same rating - if both are 0%, fewer downvotes is better (less negative signal)
