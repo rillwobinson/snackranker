@@ -1619,7 +1619,7 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
           fontSize: 'var(--font-sm)',
           color: theme.textMuted,
           margin: 0,
-          textAlign: 'center',
+          textAlign: 'left',
         }}>
           {snack.name} · {snack.brand}{snack.vegan && ' 🌱'}
         </p>
