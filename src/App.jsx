@@ -2267,6 +2267,15 @@ export default function App() {
           font-family: 'Manrope', sans-serif;
           -webkit-font-smoothing: antialiased;
           transition: background 0.3s ease, color 0.3s ease;
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+        }
+        
+        #root {
+          width: 100%;
+          display: flex;
+          justify-content: center;
         }
         
         :root {
