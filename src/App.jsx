@@ -1791,6 +1791,309 @@ const ProfilePage = ({ snack, snacks, setCurrentPage, openLightbox }) => {
   );
 };
 
+// Onboarding Overlay
+const Onboarding = ({ step, setStep, setCurrentPage }) => {
+  const theme = useContext(ThemeContext);
+  
+  const steps = [
+    {
+      title: "Welcome to SnackRanker! 👋",
+      description: "See which protein bars people would actually buy again - before you waste money on duds.",
+      highlight: null,
+      position: 'center',
+      buttonText: "Show me around",
+    },
+    {
+      title: "Rankings",
+      description: "See all bars ranked by community votes. The best bars rise to the top!",
+      highlight: { top: 8, left: 'calc(50% - 85px)', width: 80, height: 36 },
+      position: 'below',
+      buttonText: "Next",
+    },
+    {
+      title: "Rate Bars",
+      description: "Tap here to start voting on bars you've tried.",
+      highlight: { top: 8, left: 'calc(50% + 5px)', width: 65, height: 36 },
+      position: 'below',
+      buttonText: "Next",
+    },
+    {
+      title: "Swipe to Vote",
+      description: "Swipe right (or tap Yes) for bars you'd buy again. Swipe left (or tap Nope) for ones you wouldn't.",
+      highlight: null,
+      position: 'center',
+      buttonText: "Got it!",
+      showSwipeDemo: true,
+    },
+    {
+      title: "You're all set! 🎉",
+      description: "Your votes help others find great bars. Ready to start?",
+      highlight: null,
+      position: 'center',
+      buttonText: "Start Rating",
+      action: () => setCurrentPage('swipe'),
+    },
+  ];
+  
+  const currentStepData = steps[step];
+  
+  const handleNext = () => {
+    if (currentStepData.action) {
+      currentStepData.action();
+    }
+    
+    if (step < steps.length - 1) {
+      setStep(step + 1);
+    } else {
+      localStorage.setItem('snackranker-onboarding-complete', 'true');
+      setStep(null);
+    }
+  };
+  
+  const handleSkip = () => {
+    localStorage.setItem('snackranker-onboarding-complete', 'true');
+    setStep(null);
+  };
+  
+  if (step === null) return null;
+  
+  const getTooltipStyle = () => {
+    const base = {
+      position: 'absolute',
+      background: theme.cardBg,
+      borderRadius: 'var(--radius-lg)',
+      padding: 'var(--spacing-lg)',
+      width: '300px',
+      maxWidth: 'calc(100vw - 32px)',
+      boxShadow: `0 8px 32px rgba(0,0,0,0.3)`,
+      zIndex: 10001,
+    };
+    
+    if (currentStepData.position === 'center') {
+      return {
+        ...base,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      };
+    }
+    
+    if (currentStepData.position === 'below') {
+      return {
+        ...base,
+        top: '70px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+      };
+    }
+    
+    return base;
+  };
+  
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 9999,
+    }}>
+      {/* Dark overlay with cutout */}
+      <svg
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <defs>
+          <mask id="spotlight-mask">
+            <rect x="0" y="0" width="100%" height="100%" fill="white" />
+            {currentStepData.highlight && (
+              <rect
+                x={currentStepData.highlight.left}
+                y={currentStepData.highlight.top}
+                width={currentStepData.highlight.width}
+                height={currentStepData.highlight.height}
+                rx="8"
+                fill="black"
+              />
+            )}
+          </mask>
+        </defs>
+        <rect
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          fill="rgba(0,0,0,0.75)"
+          mask="url(#spotlight-mask)"
+        />
+      </svg>
+      
+      {/* Highlight border */}
+      {currentStepData.highlight && (
+        <div
+          style={{
+            position: 'absolute',
+            top: currentStepData.highlight.top,
+            left: currentStepData.highlight.left,
+            width: currentStepData.highlight.width,
+            height: currentStepData.highlight.height,
+            border: `2px solid ${theme.accent}`,
+            borderRadius: '8px',
+            boxShadow: `0 0 0 4px ${theme.accent}40`,
+            pointerEvents: 'none',
+            zIndex: 10000,
+          }}
+        />
+      )}
+      
+      {/* Tooltip */}
+      <div style={getTooltipStyle()}>
+        {/* Step indicator */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '6px',
+          marginBottom: 'var(--spacing-md)',
+        }}>
+          {steps.map((_, i) => (
+            <div
+              key={i}
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                background: i === step ? theme.accent : theme.border,
+                transition: 'background 0.2s ease',
+              }}
+            />
+          ))}
+        </div>
+        
+        <h3 style={{
+          fontFamily: '"Tanker", sans-serif',
+          fontSize: 'var(--font-lg)',
+          color: theme.text,
+          margin: '0 0 var(--spacing-sm)',
+          textAlign: 'center',
+        }}>
+          {currentStepData.title}
+        </h3>
+        
+        <p style={{
+          fontFamily: '"Manrope", sans-serif',
+          fontSize: 'var(--font-sm)',
+          color: theme.textSecondary,
+          margin: '0 0 var(--spacing-md)',
+          lineHeight: 1.5,
+          textAlign: 'center',
+        }}>
+          {currentStepData.description}
+        </p>
+        
+        {/* Swipe demo animation */}
+        {currentStepData.showSwipeDemo && (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 'var(--spacing-lg)',
+            marginBottom: 'var(--spacing-md)',
+            padding: 'var(--spacing-sm)',
+            background: theme.bgTertiary,
+            borderRadius: 'var(--radius-md)',
+          }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '24px', marginBottom: '4px' }}>👈</div>
+              <div style={{ 
+                fontFamily: '"Manrope", sans-serif', 
+                fontSize: 'var(--font-xs)',
+                color: '#e74c3c',
+                fontWeight: 600,
+              }}>Nope</div>
+            </div>
+            <div style={{
+              width: '50px',
+              height: '50px',
+              background: theme.cardBg,
+              borderRadius: 'var(--radius-sm)',
+              border: `1px solid ${theme.border}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '20px',
+              animation: 'swipeDemo 2s ease-in-out infinite',
+            }}>
+              🍫
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '24px', marginBottom: '4px' }}>👉</div>
+              <div style={{ 
+                fontFamily: '"Manrope", sans-serif', 
+                fontSize: 'var(--font-xs)',
+                color: theme.success,
+                fontWeight: 600,
+              }}>Yes!</div>
+            </div>
+          </div>
+        )}
+        
+        <style>{`
+          @keyframes swipeDemo {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-20px); }
+            75% { transform: translateX(20px); }
+          }
+        `}</style>
+        
+        <div style={{
+          display: 'flex',
+          gap: 'var(--spacing-sm)',
+        }}>
+          <button
+            onClick={handleSkip}
+            style={{
+              flex: 1,
+              padding: 'var(--spacing-sm)',
+              background: 'transparent',
+              border: `1px solid ${theme.border}`,
+              borderRadius: 'var(--radius-sm)',
+              fontFamily: '"Manrope", sans-serif',
+              fontSize: 'var(--font-sm)',
+              color: theme.textMuted,
+              cursor: 'pointer',
+            }}
+          >
+            Skip
+          </button>
+          <button
+            onClick={handleNext}
+            style={{
+              flex: 2,
+              padding: 'var(--spacing-sm)',
+              background: theme.accent,
+              border: 'none',
+              borderRadius: 'var(--radius-sm)',
+              fontFamily: '"Manrope", sans-serif',
+              fontSize: 'var(--font-sm)',
+              fontWeight: 600,
+              color: '#FFFFFF',
+              cursor: 'pointer',
+            }}
+          >
+            {currentStepData.buttonText}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Main App
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -1803,6 +2106,10 @@ export default function App() {
   const [lightbox, setLightbox] = useState({ open: false, imageUrl: null, alt: '' });
   const [isLoading, setIsLoading] = useState(true);
   const [previousRanks, setPreviousRanks] = useState({});
+  const [onboardingStep, setOnboardingStep] = useState(() => {
+    const seen = localStorage.getItem('snackranker-onboarding-complete');
+    return seen ? null : 0;
+  });
 
   const visitorId = getVisitorId();
 
@@ -1989,6 +2296,14 @@ export default function App() {
           imageUrl={lightbox.imageUrl} 
           alt={lightbox.alt} 
           onClose={closeLightbox} 
+        />
+      )}
+      
+      {onboardingStep !== null && (
+        <Onboarding 
+          step={onboardingStep} 
+          setStep={setOnboardingStep}
+          setCurrentPage={setCurrentPage}
         />
       )}
       
